@@ -40,8 +40,9 @@ header.nav{position:sticky;top:0;left:0;right:0;z-index:60;display:flex;align-it
 .brand-name{font-family:'Poppins',sans-serif;font-weight:800;font-size:1.02rem;letter-spacing:.02em;color:var(--ink);}
 .brand-tagline{font-family:'Poppins',sans-serif;font-weight:500;font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin-top:1px;}
 nav.links{display:flex;gap:28px;font-family:'Poppins',sans-serif;font-weight:500;font-size:.86rem;}
-nav.links a{opacity:.75;transition:opacity .2s;}
-nav.links a:hover,nav.links a.active{opacity:1;color:var(--secondary);}
+nav.links a,nav.links button{opacity:.75;transition:opacity .2s;background:none;border:none;font:inherit;color:inherit;cursor:pointer;font-family:'Poppins',sans-serif;font-weight:500;font-size:.86rem;}
+nav.links a:hover,nav.links a.active,nav.links button:hover,nav.links button.active{opacity:1;color:var(--secondary);}
+.foot-grid li button.linklike{background:none;border:none;color:inherit;font:inherit;cursor:pointer;padding:0;text-align:left;}
 .menu-btn{display:none;width:44px;height:38px;border:1.5px solid rgba(245,248,255,.3);border-radius:10px;align-items:center;justify-content:center;cursor:pointer;flex:none;}
 .menu-btn span{display:block;width:16px;height:1.5px;background:var(--ink);position:relative;}
 .menu-btn span::before,.menu-btn span::after{content:'';position:absolute;left:0;width:16px;height:1.5px;background:var(--ink);}
@@ -253,3 +254,58 @@ footer{padding:50px 0 24px;background:var(--bg2);border-top:1px solid rgba(245,2
 /* ---------- HERO WORD-BY-WORD REVEAL ---------- */
 .hero-inner h1 .word{display:inline-block;transform:translateX(80px);opacity:0;animation:slideInRL .8s cubic-bezier(.2,.7,.2,1) forwards;}
 @keyframes slideInRL{to{transform:translateX(0);opacity:1;}}
+
+/* ---------- SINGLE-FILE PAGE ROUTING ---------- */
+.page{display:none;}
+.page.active{display:block;}
+
+/* ---------- HOME: PROPERTY IMAGE STRIP ---------- */
+.property-strip{display:grid;grid-template-columns:repeat(5,1fr);height:min(46vw,340px);position:relative;z-index:2;}
+@media(max-width:760px){.property-strip{grid-template-columns:repeat(3,1fr);height:auto;}.property-strip .strip-item:nth-child(n+4){display:none;}}
+.strip-item{position:relative;overflow:hidden;cursor:pointer;border-right:1px solid rgba(4,12,20,.4);}
+.strip-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s;}
+.strip-item:hover img{transform:scale(1.08);}
+.strip-item .lbl{position:absolute;left:0;right:0;bottom:0;padding:14px 12px;background:linear-gradient(0deg,rgba(4,12,20,.85),transparent);font-family:'Poppins',sans-serif;color:#fff;}
+.strip-item .lbl small{display:block;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;opacity:.75;}
+.strip-item .lbl b{display:block;font-size:.82rem;margin-top:2px;}
+
+/* ---------- 3D WALKTHROUGH SECTION ---------- */
+.threed-box{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:16/8;background:#0B2540;border:1px solid rgba(245,248,255,.12);}
+.threed-box img{width:100%;height:100%;object-fit:cover;opacity:.55;}
+.threed-play{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;}
+.threed-play .circle{width:74px;height:74px;border-radius:50%;background:rgba(47,111,237,.9);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 14px rgba(47,111,237,.18);}
+.threed-play span{font-family:'Poppins',sans-serif;color:#fff;font-weight:600;font-size:.86rem;}
+
+/* ---------- CALCULATOR PAGE ---------- */
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:flex-start;}
+@media(max-width:860px){.calc-grid{grid-template-columns:1fr;}}
+.calc-card{background:rgba(245,248,255,.05);border:1px solid rgba(245,248,255,.12);border-radius:20px;padding:28px;}
+.surface-light .calc-card{background:#fff;border-color:rgba(11,37,64,.1);}
+.calc-field{margin-bottom:18px;}
+.calc-field label{display:flex;justify-content:space-between;font-family:'Poppins',sans-serif;font-size:.8rem;font-weight:600;margin-bottom:8px;color:var(--ink-muted);}
+.surface-light .calc-field label{color:var(--light-muted);}
+.calc-field label span{color:var(--secondary);}
+.calc-field input[type="range"]{width:100%;accent-color:var(--secondary);}
+.calc-result{background:rgba(47,111,237,.1);border:1px solid rgba(47,111,237,.3);border-radius:16px;padding:26px;text-align:center;}
+.calc-result .big{font-family:'Poppins',sans-serif;font-weight:800;font-size:clamp(1.8rem,4vw,2.4rem);color:var(--secondary);}
+.calc-result p{font-size:.8rem;color:var(--ink-muted);margin-top:4px;}
+.calc-breakdown{margin-top:18px;display:flex;flex-direction:column;gap:10px;}
+.calc-breakdown .row{display:flex;justify-content:space-between;font-size:.84rem;padding:8px 0;border-bottom:1px solid rgba(245,248,255,.1);}
+.surface-light .calc-breakdown .row{border-color:rgba(11,37,64,.1);}
+
+/* ---------- STANDALONE PROPERTY VIEW (deep link) ---------- */
+#propertyStandalone{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 20px;}
+.standalone-card{max-width:640px;width:100%;background:var(--bg2);border:1px solid rgba(245,248,255,.12);border-radius:22px;overflow:hidden;}
+.standalone-card .simg{aspect-ratio:16/10;}
+.standalone-card .simg img{width:100%;height:100%;object-fit:cover;}
+.standalone-card .sbody{padding:30px;}
+.standalone-brand{display:flex;align-items:center;gap:10px;margin-bottom:20px;}
+.standalone-brand .brand-name{font-size:.86rem;}
+.standalone-card h1{font-size:1.5rem;margin-bottom:6px;}
+.standalone-card .sprice{font-family:'Poppins',sans-serif;font-weight:800;color:var(--secondary);font-size:1.3rem;margin:10px 0;}
+.standalone-card .sactions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px;}
+.standalone-back{display:inline-block;margin-top:18px;font-size:.8rem;color:var(--ink-muted);text-decoration:underline;cursor:pointer;}
+
+/* ---------- SHARE BUTTON TOAST ---------- */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:#0B2540;color:#fff;padding:12px 22px;border-radius:999px;font-family:'Poppins',sans-serif;font-size:.82rem;opacity:0;pointer-events:none;transition:.3s;z-index:300;border:1px solid rgba(245,248,255,.15);}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}

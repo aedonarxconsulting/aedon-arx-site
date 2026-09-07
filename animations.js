@@ -84,6 +84,8 @@
     });
   }
 
+  window.__startCounters = startCounters;
+
   // ---------- SCROLL REVEAL (fade-up + mask-reveal share one observer) ----------
   const revealEls = document.querySelectorAll('.fup, .mask-h');
   if('IntersectionObserver' in window){
