@@ -112,6 +112,40 @@
     </div>
   </section>
 
+  <section class="surface-light">
+    <div class="wrap">
+      <div class="spotlight-grid">
+        <div class="spotlight-img fup">
+          <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80" alt="DLF The Skycourt — featured apartment">
+          <div class="ptag">Featured Apartment</div>
+        </div>
+        <div class="fup d1">
+          <span class="pill">Apartment Spotlight</span>
+          <h2 class="mask-h" style="font-size:clamp(1.6rem,3.6vw,2.3rem);margin:14px 0 10px;"><span>DLF The Skycourt, Sector 86</span></h2>
+          <div class="ploc" style="margin-bottom:16px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Gurugram, near Dwarka Expressway</div>
+          <p class="muted" style="margin-bottom:20px;line-height:1.6;">A premium high-rise 3 BHK apartment — the kind of everyday, move-in-ready home most of our clients are actually looking for, not a one-off luxury villa. Here's a closer look at what's inside.</p>
+          <div class="spotlight-specs">
+            <div><b>3 BHK</b><span>Configuration</span></div>
+            <div><b>1929 sq ft</b><span>Carpet Area</span></div>
+            <div><b>₹2.2 Cr</b><span>Indicative Price</span></div>
+          </div>
+          <div class="spotlight-amenities">
+            <span class="amenity-chip">🏊 Clubhouse &amp; Pool</span>
+            <span class="amenity-chip">🏋 Fitness Centre</span>
+            <span class="amenity-chip">🧒 Kids' Play Area</span>
+            <span class="amenity-chip">🛡 24x7 Security</span>
+            <span class="amenity-chip">🚗 Covered Parking</span>
+            <span class="amenity-chip">🌳 Landscaped Gardens</span>
+          </div>
+          <div class="hero-row" style="margin-top:22px;">
+            <button class="btn view-property-btn" data-id="dlf-the-skycourt">View Full Details</button>
+            <a href="brochures/dlf-the-skycourt.pdf" target="_blank" rel="noopener" class="btn btn-outline">Download Brochure</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="threeDSection">
     <div class="wrap">
       <span class="pill fup">3D Walkthrough</span>
@@ -301,45 +335,74 @@
     <div class="bg"><img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1800&q=80" alt="Calculator backdrop"></div>
     <div class="veil"></div>
     <div class="wrap">
-      <span class="pill fup">Calculator</span>
-      <h1 class="mask-h"><span>EMI Calculator</span></h1>
-      <p class="fup d1">Work out a rough monthly EMI before you commit to a property — on any listing, residential or commercial.</p>
+      <span class="pill fup">Buyer Resources</span>
+      <h1 class="mask-h"><span>Free Tools &amp; Calculators</span></h1>
+      <p class="fup d1">Everything a buyer needs to run the numbers before signing anything — on any Aedon Arx listing, residential or commercial.</p>
     </div>
   </section>
 
-  <section class="surface-light">
+  <section class="surface-light" style="padding-bottom:60px;">
     <div class="wrap">
-      <div class="calc-grid">
-        <div class="calc-card fup">
-          <div class="calc-field">
-            <label>Loan Amount <span id="calcAmountVal">₹50,00,000</span></label>
-            <input type="range" id="calcAmount" min="500000" max="30000000" step="100000" value="5000000">
-          </div>
-          <div class="calc-field">
-            <label>Interest Rate (per annum) <span id="calcRateVal">8.5%</span></label>
-            <input type="range" id="calcRate" min="6" max="14" step="0.1" value="8.5">
-          </div>
-          <div class="calc-field">
-            <label>Loan Tenure <span id="calcTenureVal">20 Years</span></label>
-            <input type="range" id="calcTenure" min="1" max="30" step="1" value="20">
-          </div>
-        </div>
-        <div class="calc-card fup d1">
-          <div class="calc-result">
-            <div class="big" id="calcEmi">₹0</div>
-            <p>Estimated Monthly EMI</p>
-          </div>
-          <div class="calc-breakdown">
-            <div class="row"><span>Principal Amount</span><span id="calcPrincipal">₹0</span></div>
-            <div class="row"><span>Total Interest Payable</span><span id="calcInterest">₹0</span></div>
-            <div class="row"><span>Total Payment</span><span id="calcTotal">₹0</span></div>
-          </div>
-          <p class="muted" style="font-size:.76rem;margin-top:14px;">This is an estimate only. Actual EMI depends on the lender, processing fees and final approved terms.</p>
-          <button class="btn nav-go" style="width:100%;justify-content:center;margin-top:16px;" data-page="contact">Talk To A Consultant</button>
-        </div>
+      <div class="tool-grid fup">
+        <button class="tool-card" data-tool="emi">
+          <div class="tool-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h5M8 17h3"/></svg></div>
+          <h3>EMI Calculator</h3><p>Monthly instalment + interest breakdown</p>
+        </button>
+        <button class="tool-card" data-tool="eligibility">
+          <div class="tool-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V9l7-5 7 5v12"/><path d="M9 21v-6h6v6"/></svg></div>
+          <h3>Loan Eligibility</h3><p>How much can you borrow?</p>
+        </button>
+        <button class="tool-card" data-tool="propertyComparison">
+          <div class="tool-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3v18M16 3v18M3 8h5M16 8h5M3 16h5M16 16h5"/></svg></div>
+          <h3>Property Comparison</h3><p>Compare &amp; find your best-fit home</p>
+        </button>
+        <button class="tool-card" data-tool="roi">
+          <div class="tool-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></div>
+          <h3>ROI Calculator</h3><p>Return on a property investment</p>
+        </button>
+        <button class="tool-card" data-tool="rentalYield">
+          <div class="tool-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <h3>Rental Yield</h3><p>Gross &amp; net yield from rent</p>
+        </button>
+        <button class="tool-card" data-tool="rentVsBuy">
+          <div class="tool-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l9 8h-3v9h-5v-6H11v6H6v-9H3l9-8z"/></svg></div>
+          <h3>Rent vs Buy</h3><p>Which is smarter over time?</p>
+        </button>
+        <button class="tool-card" data-tool="sipVsProperty">
+          <div class="tool-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12a8 8 0 1 1-3-6.2"/><path d="M20 4v5h-5"/></svg></div>
+          <h3>SIP vs Property</h3><p>Mutual funds vs real estate</p>
+        </button>
+        <button class="tool-card" data-tool="tds">
+          <div class="tool-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M9 9h6v6H9z"/></svg></div>
+          <h3>TDS On Property</h3><p>1% deduction over ₹50L</p>
+        </button>
+        <button class="tool-card" data-tool="gst">
+          <div class="tool-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M4 6h16M4 18h16"/></svg></div>
+          <h3>GST Calculator</h3><p>Under-construction vs ready</p>
+        </button>
+        <button class="tool-card" data-tool="costSheet">
+          <div class="tool-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg></div>
+          <h3>Cost Sheet Builder</h3><p>The true all-in cost</p>
+        </button>
+        <button class="tool-card" data-tool="stampDuty">
+          <div class="tool-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h4l3-9 4 18 3-9h6"/></svg></div>
+          <h3>Stamp Duty</h3><p>State-wise duty + registration</p>
+        </button>
+        <button class="tool-card" data-tool="capitalGains">
+          <div class="tool-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 15l4-6 4 3 5-8"/></svg></div>
+          <h3>Capital Gains</h3><p>LTCG with/without indexation</p>
+        </button>
       </div>
+      <p class="muted fup d1" style="font-size:.8rem;margin-top:18px;">Tap any tool to open it. All results are estimates only — for exact figures, talk to your bank or a tax professional.</p>
+      <div style="text-align:center;margin-top:30px;"><button class="btn nav-go" data-page="contact">Talk To A Consultant</button></div>
     </div>
   </section>
+</div>
+
+<!-- ============================= CALCULATOR TOOL MODAL ============================= -->
+<div class="tool-modal" id="toolModal">
+  <div class="tool-modal-veil" id="toolModalVeil"></div>
+  <div class="tool-modal-card" id="toolModalCard"></div>
 </div>
 
 <!-- ============================= TESTIMONIALS ============================= -->

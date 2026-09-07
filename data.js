@@ -16,7 +16,7 @@ const PROPERTIES = [
     area: '1929 sq ft',
     img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=900&q=80',
     desc: 'A premium high-rise 3 BHK residence in Sector 86, Gurugram, close to the Dwarka Expressway.',
-    brochure: 'https://aedonarxconsulting.com/brochures/dlf-the-skycourt.pdf',
+    brochure: 'brochures/dlf-the-skycourt.pdf',
   has3D: true
   },
   {
@@ -30,7 +30,7 @@ const PROPERTIES = [
     area: '1850 sq ft',
     img: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=900&q=80',
     desc: 'A new-launch residential development in Sector 86, Gurugram, with RERA registration in place.',
-    brochure: 'https://aedonarxconsulting.com/brochures/emaar-serenity-hills.pdf',
+    brochure: 'brochures/emaar-serenity-hills.pdf',
   has3D: true
   },
   {
@@ -44,7 +44,7 @@ const PROPERTIES = [
     area: '1500 sq ft office',
     img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=80',
     desc: 'Fitted office space in Sector 89, Gurugram\'s emerging commercial and business-park corridor.',
-    brochure: 'https://aedonarxconsulting.com/brochures/vatika-business-park-sector-89.pdf',
+    brochure: 'brochures/vatika-business-park-sector-89.pdf',
   has3D: true
   },
   {
@@ -58,7 +58,7 @@ const PROPERTIES = [
     area: '1170 sq ft',
     img: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=900&q=80',
     desc: 'A 2 BHK apartment in Sector 118, Noida, close to the Noida Authority Sports Complex.',
-    brochure: 'https://aedonarxconsulting.com/brochures/supertech-romano.pdf',
+    brochure: 'brochures/supertech-romano.pdf',
   has3D: true
   },
   {
@@ -72,7 +72,7 @@ const PROPERTIES = [
     area: '1350 sq ft',
     img: 'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=900&q=80',
     desc: 'A spacious 3 BHK residence in Sector 75, Noida, surrounded by established neighbourhoods.',
-    brochure: 'https://aedonarxconsulting.com/brochures/jm-aroma.pdf',
+    brochure: 'brochures/jm-aroma.pdf',
   has3D: true
   },
   {
@@ -86,7 +86,7 @@ const PROPERTIES = [
     area: '950 sq ft',
     img: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80',
     desc: 'An affordable 2 BHK apartment in Noida Extension, from an established developer.',
-    brochure: 'https://aedonarxconsulting.com/brochures/panchsheel-greens.pdf',
+    brochure: 'brochures/panchsheel-greens.pdf',
   has3D: true
   },
   {
@@ -100,7 +100,7 @@ const PROPERTIES = [
     area: '1400 sq ft',
     img: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=900&q=80',
     desc: 'A 3 BHK residential flat in Sector 88, Faridabad, part of the fast-growing Neharpar belt.',
-    brochure: 'https://aedonarxconsulting.com/brochures/amolik-heights.pdf',
+    brochure: 'brochures/amolik-heights.pdf',
   has3D: true
   },
   {
@@ -114,7 +114,7 @@ const PROPERTIES = [
     area: '600 sq ft retail',
     img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=80',
     desc: 'A retail shop in Sector 79, Faridabad, part of a mixed residential-and-commercial development.',
-    brochure: 'https://aedonarxconsulting.com/brochures/omaxe-world-street.pdf',
+    brochure: 'brochures/omaxe-world-street.pdf',
   has3D: true
   },
   {
@@ -128,7 +128,7 @@ const PROPERTIES = [
     area: '9000 sq ft warehouse',
     img: 'https://images.unsplash.com/photo-1553413077-190983b508fa?auto=format&fit=crop&w=900&q=80',
     desc: 'A large warehouse on PN Road, Tiruppur, in the heart of the city\'s textile export hub.',
-    brochure: 'https://aedonarxconsulting.com/brochures/tiruppur-pn-road-warehouse.pdf',
+    brochure: 'brochures/tiruppur-pn-road-warehouse.pdf',
   has3D: true
   },
   {
@@ -142,12 +142,12 @@ const PROPERTIES = [
     area: '2400 sq ft godown',
     img: 'https://images.unsplash.com/photo-1553413077-190983b508fa?auto=format&fit=crop&w=900&q=80',
     desc: 'A compact, ready-to-move godown in Chettipalayam, Tiruppur — suited for storage or small units.',
-    brochure: 'https://aedonarxconsulting.com/brochures/chettipalayam-godown.pdf',
+    brochure: 'brochures/chettipalayam-godown.pdf',
   has3D: true
   }
 ];
 
-const COMPANY_BROCHURE = 'https://aedonarxconsulting.com/brochures/aedon-arx-consulting-company-profile.pdf';
+const COMPANY_BROCHURE = 'brochures/aedon-arx-consulting-company-profile.pdf';
 
 // Basic scoring-based matcher used by both the Ask AI form and the chat
 function matchProperties({ location, type, minBudget, maxBudget, bedrooms } = {}) {
@@ -194,52 +194,73 @@ function parseTextToFilters(text) {
 }
 
 // ---------------------------------------------------------------------------
-// GPT-powered assistant (direct-from-browser call — see security note below)
+// AI ASSISTANT
 // ---------------------------------------------------------------------------
-// ⚠️ SECURITY NOTE: this key is embedded client-side, which means anyone who
-// views page source / network tab can read and reuse it. This was a deliberate
-// short-term choice for a quick demo. Before this site gets real traffic, move
-// this call behind a backend (Firebase Cloud Function or similar) so the key
-// never reaches the browser, and rotate this key once that's done.
-const GPT_KEY = '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';
+// ⚠️ IMPORTANT — read this before deploying:
+// The earlier version of this file called OpenAI directly from the browser with
+// an API key pasted into the JS. That is why "Ask AI" was not answering:
+//   1) OpenAI's API does not allow direct browser calls (no CORS headers), so
+//      that fetch() fails in every browser regardless of the key.
+//   2) Any key placed in client-side JS is visible to every visitor via
+//      "view source" / dev tools — it WILL get scraped and abused. If that was
+//      a real key, go rotate/revoke it in your OpenAI dashboard right now.
+// A real GPT-powered chat needs a small backend (a serverless function, e.g.
+// Firebase/Cloudflare Worker/Vercel function) that holds the key server-side
+// and that the browser calls instead of OpenAI directly. Ask me for that
+// backend function whenever you're ready to add it.
+//
+// Until then, this file gives you a fully working, no-backend-needed local
+// assistant. It uses the same property matching + text parsing already in
+// this file, so it always answers instantly and never breaks.
+// ---------------------------------------------------------------------------
 
-function propertyContextForAI() {
-  return PROPERTIES.map(p =>
-    `- ${p.name} | ${p.type} | ${p.location} | ${p.bedrooms ? p.bedrooms+' BHK' : p.area} | ${p.priceLabel} | ${p.has3D ? '3D walkthrough available' : ''} | Brochure: ${p.brochure}`
+// Optional: once you have a backend proxy, set this to its URL and set
+// USE_BACKEND_AI = true. The browser will then POST { message, history } to it
+// and expect back { reply: "..." }. Leave USE_BACKEND_AI = false to keep using
+// the local assistant below.
+const USE_BACKEND_AI = false;
+const BACKEND_AI_URL = 'https://your-backend.example.com/api/ask-ai';
+
+function formatMatchesForReply(matches) {
+  if (!matches.length) return '';
+  return matches.map(p =>
+    `• ${p.name} — ${p.location}, ${p.priceLabel}${p.bedrooms ? ' • ' + p.bedrooms + ' BHK' : ''}${p.has3D ? ' • 3D walkthrough available' : ''}`
   ).join('\n');
 }
 
-const AI_SYSTEM_PROMPT = `You are the AI assistant for Aedon Arx Consulting, a registered real estate consultant/agent based in Sector 86, Gurugram, India ("We Value Relationship"). You help clients find residential and commercial properties across Gurugram, Noida, Faridabad and Tiruppur.
+function localAedonReply(userMessage) {
+  const filters = parseTextToFilters(userMessage);
+  const hasAnyFilter = filters.location || filters.type || filters.bedrooms || (filters.maxBudget && filters.maxBudget < 100000000);
+  const matches = matchProperties(filters);
 
-Here is the current property inventory — recommend ONLY from this list, never invent properties:
-${propertyContextForAI()}
-
-Rules:
-- When a client describes what they want (location, budget, type, bedrooms), recommend the 1-3 best matches with price, location and the brochure link.
-- If a property has a 3D walkthrough available, mention that.
-- If nothing matches well, say so honestly and suggest they call +91 99539 13605 or use the Contact page.
-- Keep replies short (under 80 words), warm and conversational. Reply in the same language/style the user writes in (English or Hinglish).
-- Don't discuss anything unrelated to Aedon Arx's real estate services.`;
+  if (!hasAnyFilter) {
+    return "Tell me the location, budget and BHK (if residential) you're looking for — e.g. \"3 BHK in Noida under 1 Cr\" or \"commercial space in Tiruppur\" — and I'll shortlist matching properties for you. You can also call +91 99539 13605 anytime.";
+  }
+  if (!matches.length) {
+    return "Nothing matches that closely right now. Try widening your budget or location a bit, or call +91 99539 13605 and our consultant will check upcoming listings for you.";
+  }
+  const bits = [];
+  if (filters.location) bits.push(filters.location);
+  if (filters.type) bits.push(filters.type.toLowerCase());
+  if (filters.bedrooms) bits.push(filters.bedrooms + ' BHK');
+  const intro = bits.length ? `Here's what fits ${bits.join(', ')}:` : "Here's what fits best:";
+  return `${intro}\n${formatMatchesForReply(matches)}\n\nWant the brochure for any of these, or should I get a consultant to call you?`;
+}
 
 async function askAedonAI(userMessage, history = []) {
-  try {
-    const res = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${GPT_KEY}` },
-      body: JSON.stringify({
-        model: 'gpt-4o-mini',
-        messages: [
-          { role: 'system', content: AI_SYSTEM_PROMPT },
-          ...history,
-          { role: 'user', content: userMessage }
-        ],
-        max_tokens: 220,
-        temperature: 0.6
-      })
-    });
-    const data = await res.json();
-    return data.choices?.[0]?.message?.content || "Sorry, I couldn't process that — please try again or call +91 99539 13605.";
-  } catch (e) {
-    return "AI is temporarily unavailable — please call +91 99539 13605 or use the Contact page.";
+  if (USE_BACKEND_AI) {
+    try {
+      const res = await fetch(BACKEND_AI_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: userMessage, history })
+      });
+      const data = await res.json();
+      if (data && data.reply) return data.reply;
+    } catch (e) {
+      // fall through to local assistant so the widget still answers
+    }
   }
+  // Local, no-backend assistant — always answers, no network call needed.
+  return localAedonReply(userMessage);
 }
