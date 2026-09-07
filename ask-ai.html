@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ask AI | Aedon Arx Consulting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="preloader">
+  <div class="pre-mark">AEDON ARX</div>
+  <div class="pre-bar"><span id="preFill"></span></div>
+  <div class="pre-pct" id="prePct">Loading 0%</div>
+</div>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+
+<header class="nav">
+  <div class="brand">
+    <div class="brand-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3l9 17H3L12 3z" stroke="#D9B45C" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 9l5 8H7l5-8z" fill="#D9B45C"/></svg>
+    </div>
+    <div class="brand-text">
+      <div class="brand-name">Aedon Arx Consulting</div>
+      <div class="brand-tagline">We Value Relationship</div>
+    </div>
+  </div>
+  <nav class="links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="properties.html">Amenities</a>
+    <a href="ask-ai.html" class="active">Ask AI</a>
+    <a href="testimonials.html">Testimonials</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="menu-btn" id="menuBtn"><span></span></div>
+</header>
+
+<section class="page-hero">
+  <div class="bg"><img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1800&q=80" alt="Ask AI backdrop"></div>
+  <div class="veil"></div>
+  <div class="wrap">
+    <span class="pill fup">Ask AI</span>
+    <h1 class="mask-h"><span>Let Us Find Your Property</span></h1>
+    <p class="fup d1">Tell us what you need, or just chat with our assistant — we'll shortlist matching properties and share the brochure directly.</p>
+  </div>
+</section>
+
+<section class="surface-light">
+  <div class="wrap">
+    <div class="ai-grid">
+      <div class="fup">
+        <h2 style="font-size:1.4rem;margin-bottom:18px;">Tell us what you're looking for</h2>
+        <form class="ai-form tilt" id="aiForm">
+          <div class="ai-field">
+            <label>Your Name</label>
+            <input type="text" id="aiName" placeholder="e.g. Rohit Sharma" required>
+          </div>
+          <div class="ai-field">
+            <label>Phone Number</label>
+            <input type="tel" id="aiPhone" placeholder="e.g. 98765 43210">
+          </div>
+          <div class="ai-field">
+            <label>Preferred Location</label>
+            <select id="aiLocation">
+              <option value="Any">Any</option>
+              <option value="Gurugram">Gurugram</option>
+              <option value="Noida">Noida</option>
+              <option value="Faridabad">Faridabad</option>
+              <option value="Tiruppur">Tiruppur</option>
+            </select>
+          </div>
+          <div class="ai-field">
+            <label>Property Type</label>
+            <select id="aiType">
+              <option value="Any">Any</option>
+              <option value="Residential">Residential</option>
+              <option value="Commercial">Commercial</option>
+            </select>
+          </div>
+          <div class="ai-field">
+            <label>Budget Range</label>
+            <select id="aiBudget">
+              <option value="0-6000000">Under ₹60 Lakh</option>
+              <option value="6000000-10000000">₹60 Lakh – ₹1 Cr</option>
+              <option value="10000000-20000000" selected>₹1 Cr – ₹2 Cr</option>
+              <option value="20000000-100000000">₹2 Cr+</option>
+            </select>
+          </div>
+          <div class="ai-field">
+            <label>Bedrooms (if residential)</label>
+            <select id="aiBedrooms">
+              <option value="">Not applicable</option>
+              <option value="1">1 BHK</option>
+              <option value="2">2 BHK</option>
+              <option value="3">3 BHK</option>
+              <option value="4">4 BHK</option>
+            </select>
+          </div>
+          <button type="submit" class="btn" style="width:100%;justify-content:center;">Find My Match</button>
+        </form>
+        <div class="ai-results" id="aiResults">
+          <h3 style="font-size:1rem;margin-bottom:12px;">Top Matches For You</h3>
+          <div id="aiResultsList"></div>
+        </div>
+      </div>
+
+      <div class="chat-panel tilt fup d1">
+        <div class="chat-head">
+          <div class="dot"></div>
+          <div><b style="font-family:'Poppins',sans-serif;font-size:.92rem;">Aedon AI Assistant</b><div class="muted" style="font-size:.74rem;">Ask me anything about a property</div></div>
+        </div>
+        <div class="chat-body" id="chatBody"></div>
+        <div class="chat-input-row">
+          <input type="text" id="chatInput" placeholder="e.g. 3 BHK in Gurugram under 2 Cr">
+          <button id="chatSend" aria-label="Send"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="brand-name" style="margin-bottom:6px;">Aedon Arx Consulting</div>
+        <div class="brand-tagline" style="margin-bottom:14px;">We Value Relationship</div>
+        <p class="muted" style="font-size:.85rem;line-height:1.6;max-width:280px;">Registered consultant/agent specializing in new residential &amp; commercial projects, with 5 years of experience.</p>
+        <a class="foot-brochure" href="" id="footBrochure" target="_blank" rel="noopener" style="margin-top:14px;">⬇ Download Company Brochure</a>
+      </div>
+      <div><h4>Explore</h4><ul><li><a href="index.html">Home</a></li><li><a href="properties.html">Amenities</a></li><li><a href="ask-ai.html">Ask AI</a></li><li><a href="testimonials.html">Testimonials</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="contact.html">Contact</a></li><li><a href="testimonials.html">Client Stories</a></li><li><a href="properties.html">All Properties</a></li></ul></div>
+      <div><h4>Contact</h4><ul><li><a href="tel:+919953913605">+91 99539 13605</a></li><li><a href="mailto:connect@aedonarxconsulting.com">connect@aedonarxconsulting.com</a></li><li>Gurugram, Haryana, India</li></ul></div>
+    </div>
+    <div class="foot-bottom"><p>© 2026 AEDON ARX CONSULTING. All rights reserved.</p><p>Design &amp; build — Next Gen Web</p></div>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="animations.js"></script>
+<script>
+  document.getElementById('footBrochure').href = COMPANY_BROCHURE;
+  document.getElementById('menuBtn').addEventListener('click', ()=>{
+    document.getElementById('navLinks').classList.toggle('mobile-open');
+  });
+
+  function matchCardHtml(p){
+    return `<div class="match-card">
+      <h4>${p.name}</h4>
+      <p>${p.location} • ${p.type} • ${p.priceLabel}${p.bedrooms ? ' • '+p.bedrooms+' BHK' : ''}${p.has3D ? ' • 🎥 3D Walkthrough Available' : ''}</p>
+      <a href="${p.brochure}" target="_blank" rel="noopener" class="btn btn-sm">Download Brochure</a>
+    </div>`;
+  }
+
+  document.getElementById('aiForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const location = document.getElementById('aiLocation').value;
+    const type = document.getElementById('aiType').value;
+    const [minBudget, maxBudget] = document.getElementById('aiBudget').value.split('-').map(Number);
+    const bedrooms = parseInt(document.getElementById('aiBedrooms').value, 10) || null;
+    const matches = matchProperties({ location, type, minBudget, maxBudget, bedrooms });
+    const resultsBox = document.getElementById('aiResults');
+    const list = document.getElementById('aiResultsList');
+    list.innerHTML = matches.length ? matches.map(matchCardHtml).join('') : '<p class="muted">No close matches — try widening your budget or location.</p>';
+    resultsBox.classList.add('show');
+    resultsBox.scrollIntoView({behavior:'smooth', block:'nearest'});
+  });
+
+  // ---- Chat panel (rule-based, keyword + property matching) ----
+  const chatBody = document.getElementById('chatBody');
+  function addChatMsg(html, who){
+    const m = document.createElement('div');
+    m.className = 'msg ' + who;
+    m.innerHTML = html;
+    chatBody.appendChild(m);
+    chatBody.scrollTop = chatBody.scrollHeight;
+  }
+  addChatMsg("Hi! Tell me what you're looking for — e.g. \"3 BHK in Noida under 1 Cr\" or \"commercial space in Tiruppur\".", 'bot');
+
+  function chatMiniCard(p){
+    return `<div class="mini-card"><b>${p.name}</b>${p.location} • ${p.priceLabel}${p.has3D ? ' • 3D Walkthrough' : ''}<br><a href="${p.brochure}" target="_blank" rel="noopener">Download Brochure →</a></div>`;
+  }
+
+  let askAiHistory = [];
+  function chatTyping(show){
+    let el = document.getElementById('askAiTyping');
+    if(show && !el){
+      el = document.createElement('div');
+      el.id = 'askAiTyping';
+      el.className = 'msg bot';
+      el.textContent = '...';
+      chatBody.appendChild(el);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    } else if(!show && el){
+      el.remove();
+    }
+  }
+
+  function linkify(text){
+    return text.replace(/(https?:\/\/[^\s)]+)/g, url => `<a href="${url}" target="_blank" rel="noopener" style="color:#2F6FED;">${url}</a>`);
+  }
+
+  async function sendChat(){
+    const input = document.getElementById('chatInput');
+    const text = input.value.trim();
+    if(!text) return;
+    addChatMsg(text, 'user');
+    input.value = '';
+    askAiHistory.push({ role:'user', content:text });
+    chatTyping(true);
+    const reply = await askAedonAI(text, askAiHistory.slice(-6));
+    chatTyping(false);
+    addChatMsg(linkify(reply), 'bot');
+    askAiHistory.push({ role:'assistant', content:reply });
+
+    // still surface matching property cards alongside the AI's reply
+    const filters = parseTextToFilters(text);
+    const matches = matchProperties(filters);
+    if(matches.length){
+      let html = '';
+      matches.forEach(p=> html += chatMiniCard(p));
+      addChatMsg(html, 'bot');
+    }
+  }
+  document.getElementById('chatSend').addEventListener('click', sendChat);
+  document.getElementById('chatInput').addEventListener('keydown', e=>{ if(e.key==='Enter') sendChat(); });
+</script>
+</body>
+</html>
