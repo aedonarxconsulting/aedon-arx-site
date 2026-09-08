@@ -143,6 +143,12 @@ nav.links.mobile-open{display:flex;position:absolute;top:100%;left:0;right:0;fle
 .ai-results .match-card{background:rgba(47,111,237,.08);border:1px solid rgba(47,111,237,.3);border-radius:14px;padding:16px;margin-bottom:12px;}
 .ai-results .match-card h4{font-size:.94rem;margin-bottom:4px;}
 .ai-results .match-card p{font-size:.8rem;color:var(--ink-muted);margin-bottom:10px;}
+/* .match-card p had the dark-theme "near white" muted color with no
+   light-mode override — on the white/light Ask AI page that text was
+   nearly invisible against the pale blue card background. Same root
+   cause as the .btn-outline bug fixed earlier, different element. */
+.surface-light .ai-results .match-card h4{color:var(--light-ink);}
+.surface-light .ai-results .match-card p{color:var(--light-muted);}
 
 .chat-panel{background:rgba(245,248,255,.05);border:1px solid rgba(245,248,255,.12);border-radius:20px;display:flex;flex-direction:column;height:560px;}
 .surface-light .chat-panel{background:#fff;border-color:rgba(11,37,64,.1);}
@@ -363,3 +369,8 @@ footer{padding:50px 0 24px;background:var(--bg2);border-top:1px solid rgba(245,2
 .spotlight-specs span{font-size:.76rem;color:var(--light-muted);text-transform:uppercase;letter-spacing:.04em;}
 .spotlight-amenities{display:flex;flex-wrap:wrap;gap:10px;}
 .amenity-chip{background:rgba(47,111,237,.08);color:var(--light-ink);font-size:.8rem;padding:8px 14px;border-radius:999px;border:1px solid rgba(47,111,237,.15);}
+
+/* ---------- HOME "ASK AI" CTA — was just floating text in a lot of empty
+   space; added an icon badge + supporting line so it reads as a finished
+   section instead of unfinished/empty ---------- */
+.ai-cta-icon{width:64px;height:64px;border-radius:50%;background:rgba(217,180,92,.1);border:1px solid rgba(217,180,92,.3);display:inline-flex;align-items:center;justify-content:center;}

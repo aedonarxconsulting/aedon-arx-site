@@ -14,7 +14,7 @@ const PROPERTIES = [
     price: 22000000, // ~2.2 Cr
     priceLabel: '₹2.2 Cr',
     area: '1929 sq ft',
-    img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=900&q=80',
+    img: 'https://images.unsplash.com/photo-1760235674447-fe0cc115b697?auto=format&fit=crop&w=900&q=80',
     desc: 'A premium high-rise 3 BHK residence in Sector 86, Gurugram, close to the Dwarka Expressway.',
     brochure: 'brochures/dlf-the-skycourt.pdf',
   has3D: true
@@ -28,7 +28,7 @@ const PROPERTIES = [
     price: 21000000, // ~2.1 Cr
     priceLabel: '₹2.1 Cr',
     area: '1850 sq ft',
-    img: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=900&q=80',
+    img: 'https://images.unsplash.com/photo-1759162788764-f40075c8857f?auto=format&fit=crop&w=900&q=80',
     desc: 'A new-launch residential development in Sector 86, Gurugram, with RERA registration in place.',
     brochure: 'brochures/emaar-serenity-hills.pdf',
   has3D: true
@@ -56,7 +56,7 @@ const PROPERTIES = [
     price: 5500000, // 55 Lakh
     priceLabel: '₹55 Lakh',
     area: '1170 sq ft',
-    img: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=900&q=80',
+    img: 'https://images.unsplash.com/photo-1758193431351-68538bf55ec3?auto=format&fit=crop&w=900&q=80',
     desc: 'A 2 BHK apartment in Sector 118, Noida, close to the Noida Authority Sports Complex.',
     brochure: 'brochures/supertech-romano.pdf',
   has3D: true
@@ -70,7 +70,7 @@ const PROPERTIES = [
     price: 5800000, // 58 Lakh
     priceLabel: '₹58 Lakh',
     area: '1350 sq ft',
-    img: 'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=900&q=80',
+    img: 'https://images.unsplash.com/photo-1757125505346-2d71c70e6003?auto=format&fit=crop&w=900&q=80',
     desc: 'A spacious 3 BHK residence in Sector 75, Noida, surrounded by established neighbourhoods.',
     brochure: 'brochures/jm-aroma.pdf',
   has3D: true
@@ -84,7 +84,7 @@ const PROPERTIES = [
     price: 4500000, // 45 Lakh
     priceLabel: '₹45 Lakh',
     area: '950 sq ft',
-    img: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80',
+    img: 'https://images.unsplash.com/photo-1760235674447-fe0cc115b697?auto=format&fit=crop&w=900&q=80',
     desc: 'An affordable 2 BHK apartment in Noida Extension, from an established developer.',
     brochure: 'brochures/panchsheel-greens.pdf',
   has3D: true
@@ -98,7 +98,7 @@ const PROPERTIES = [
     price: 6500000, // 65 Lakh
     priceLabel: '₹65 Lakh',
     area: '1400 sq ft',
-    img: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=900&q=80',
+    img: 'https://images.unsplash.com/photo-1759162788764-f40075c8857f?auto=format&fit=crop&w=900&q=80',
     desc: 'A 3 BHK residential flat in Sector 88, Faridabad, part of the fast-growing Neharpar belt.',
     brochure: 'brochures/amolik-heights.pdf',
   has3D: true
