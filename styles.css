@@ -72,6 +72,16 @@ nav.links.mobile-open{display:flex;position:absolute;top:100%;left:0;right:0;fle
 .hero-row{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:24px;}
 .hero-row p{color:var(--ink-muted);max-width:420px;}
 
+/* ---------- HOME HERO — CENTERED (VINODE-STYLE) ---------- */
+.hero-centered{align-items:center;justify-content:center;text-align:center;min-height:100vh;}
+.hero-inner-centered{display:flex;flex-direction:column;align-items:center;padding:0 clamp(20px,6vw,60px);max-width:640px;margin:0 auto;}
+.hero-headline-stacked{font-size:clamp(2.4rem,9vw,4.2rem);text-transform:none;line-height:1.05;text-align:center;}
+.hero-headline-stacked .word{display:block;}
+.hero-br{display:none;}
+.hero-sub{margin-top:18px;color:var(--ink-muted);font-family:'Inter',sans-serif;font-size:1rem;max-width:420px;}
+.hero-row-stacked{flex-direction:column;width:100%;max-width:360px;gap:14px;margin-top:34px;}
+.btn-pill-wide{width:100%;justify-content:center;border-radius:999px;padding:16px 28px;letter-spacing:.06em;text-transform:uppercase;font-size:.78rem;background:transparent;}
+
 /* ---------- MARQUEE ---------- */
 .marquee-strip{background:var(--bg2);border-top:1px solid rgba(245,248,255,.08);border-bottom:1px solid rgba(245,248,255,.08);padding:14px 0;overflow:hidden;white-space:nowrap;}
 .marquee-track{display:inline-flex;gap:40px;animation:marquee 26s linear infinite;font-family:'Poppins',sans-serif;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-muted);}
