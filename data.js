@@ -255,6 +255,24 @@ function localAedonReply(userMessage) {
     ]);
   }
 
+  // These are exact quick-reply button labels (and close variants of what
+  // someone might type themselves) — they were previously falling straight
+  // through to the generic "tell me more" reply below, which ignored what
+  // was actually asked and felt like a bot that wasn't listening.
+  if (/talk to a? ?consultant|talk to (a )?human|real person|baat kar|consultant se baat|call.*consultant/.test(t)) {
+    return pick([
+      "Bilkul — call kar do +91 99539 13605 pe, ya Contact page se apna number chhod do, ek consultant khud call karega. Kis property/area ke baare mein baat karni thi, bata doge toh call aur productive hogi.",
+      "Sure — you can call +91 99539 13605 directly, or leave your number on the Contact page and a consultant will call you back. Tell me which property or area this is about and I'll pass it along."
+    ]);
+  }
+  if (/what areas|which (cit(y|ies)|areas)|areas do you (serve|cover)|kaunse? (shehar|area|city)|kahan kahan/.test(t)) {
+    return "Abhi hum Gurugram, Noida, Faridabad aur Tiruppur mein active hain — residential aur commercial, dono. Inme se kisi city ka naam bata do, options dikhata hoon.";
+  }
+  if (/^show me properties$|^show properties$|^properties$|sabhi properties|all properties|kya kya hai/.test(t)) {
+    const top = PROPERTIES.slice(0, 4);
+    return `Abhi yeh kuch options hain:\n${formatMatchesForReply(top)}\n\nKisi specific city, budget ya BHK ke hisaab se dekhna ho toh bata do, narrow kar deta hoon.`;
+  }
+
   const filters = parseTextToFilters(raw);
   const hasAnyFilter = filters.location || filters.type || filters.bedrooms || (filters.maxBudget && filters.maxBudget < 100000000);
   const matches = matchProperties(filters);

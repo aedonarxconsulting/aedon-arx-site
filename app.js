@@ -151,6 +151,7 @@ function init(){
   initCalculator();
   initContactForm();
   initChatWidget();
+  initFaq();
 }
 
 function bindPropertyButtons(){
@@ -592,6 +593,17 @@ function initCalculator(){
 }
 
 // ---------------- CONTACT FORM ----------------
+function initFaq(){
+  document.querySelectorAll('.faq-item').forEach(item=>{
+    const q = item.querySelector('.faq-q');
+    q.addEventListener('click', ()=>{
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(el=> el.classList.remove('open'));
+      if(!wasOpen) item.classList.add('open');
+    });
+  });
+}
+
 function initContactForm(){
   document.getElementById('contactForm').addEventListener('submit', function(e){
     e.preventDefault();
