@@ -87,21 +87,44 @@
   window.__startCounters = startCounters;
 
   // ---------- SCROLL REVEAL (fade-up + mask-reveal share one observer) ----------
-  const revealEls = document.querySelectorAll('.fup, .mask-h');
-  if('IntersectionObserver' in window){
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
-    }, {threshold:.15});
-    revealEls.forEach(el=> io.observe(el));
-    const statsRow = document.querySelector('.stats-row');
-    if(statsRow){
-      const cio = new IntersectionObserver((entries)=>{
-        entries.forEach(e=>{ if(e.isIntersecting) startCounters(); });
-      }, {threshold:.4});
-      cio.observe(statsRow);
+  // NOTE: this used to run ONCE, right when animations.js loaded — which is
+  // BEFORE app.js injects the property strip, best-properties grid,
+  // testimonial cards, etc via innerHTML. Elements added after that point
+  // (anything with class "fup") were never handed to the IntersectionObserver,
+  // so they stayed at their default CSS state (opacity:0) forever — that is
+  // the "empty spaces" bug. Fix: keep one shared observer alive and expose
+  // window.__refreshScrollReveal() so app.js can re-scan for new .fup/.mask-h
+  // elements right after it renders dynamic content.
+  const hasIO = 'IntersectionObserver' in window;
+  let revealIO = null;
+  const alreadyObserved = new WeakSet();
+  function refreshScrollReveal(){
+    const els = document.querySelectorAll('.fup, .mask-h');
+    if(hasIO){
+      if(!revealIO){
+        revealIO = new IntersectionObserver((entries)=>{
+          entries.forEach(e=>{
+            if(e.isIntersecting){ e.target.classList.add('in'); revealIO.unobserve(e.target); }
+          });
+        }, {threshold:.15});
+      }
+      els.forEach(el=>{
+        if(!alreadyObserved.has(el)){ alreadyObserved.add(el); revealIO.observe(el); }
+      });
+    } else {
+      els.forEach(el=> el.classList.add('in'));
     }
-  } else {
-    revealEls.forEach(el=> el.classList.add('in'));
+  }
+  refreshScrollReveal();
+  window.__refreshScrollReveal = refreshScrollReveal;
+
+  const statsRow = document.querySelector('.stats-row');
+  if(hasIO && statsRow){
+    const cio = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting) startCounters(); });
+    }, {threshold:.4});
+    cio.observe(statsRow);
+  } else if(!hasIO){
     startCounters();
   }
 })();

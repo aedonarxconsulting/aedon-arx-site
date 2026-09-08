@@ -13,8 +13,8 @@ const TESTIMONIALS = [
   { name: 'Dev Sharma', loc: 'Client, Noida', quote: 'Professional, responsive and genuinely helpful. Would recommend Aedon Arx to anyone looking in the NCR region.' }
 ];
 
-function testimonialCard(t){
-  return `<div class="test-card tilt">
+function testimonialCard(t, delayClass){
+  return `<div class="test-card tilt fup ${delayClass||''}">
     <div class="test-stars">★★★★★</div>
     <p class="quote">${t.quote}</p>
     <div class="test-person"><b>${t.name}</b><span>${t.loc}</span></div>
@@ -22,7 +22,14 @@ function testimonialCard(t){
 }
 
 function propertyUrl(id){
-  return `${location.origin}${location.pathname}?property=${id}`;
+  // Points to the static per-property page (property/<id>.html) instead of
+  // the ?property= SPA link, because WhatsApp/Telegram/Facebook link
+  // previews only read plain HTML + Open Graph tags — they don't run the
+  // site's JS, so a ?property= link would just show the generic homepage
+  // preview. property/<id>.html has per-listing og:title/og:image baked in,
+  // so sharing it shows a rich card (image + name + price), same as what
+  // you saw from Propsite.
+  return `${location.origin}${location.pathname.replace(/index\.html$/,'')}property/${id}.html`;
 }
 
 function showToast(msg){
@@ -45,6 +52,7 @@ function propertyCardHtml(p){
         <div class="pactions">
           <a href="${p.brochure}" target="_blank" rel="noopener" class="btn btn-sm">Brochure</a>
           <button class="btn btn-outline btn-sm view-property-btn" data-id="${p.id}">View Details</button>
+          ${p.has3D ? `<button class="btn btn-outline btn-sm btn-3d walkthrough-btn" data-id="${p.id}">🎥 3D Walkthrough</button>` : ''}
           <button class="btn btn-outline btn-sm share-property-btn" data-id="${p.id}">Share</button>
         </div>
       </div>
@@ -61,6 +69,20 @@ function stripItemHtml(p){
 document.addEventListener('DOMContentLoaded', init);
 
 function init(){
+  // The nav was position:sticky, which silently breaks the moment any
+  // ancestor (here, <body>) has overflow set to anything but visible —
+  // and we do set overflow-x:hidden on body to stop horizontal scroll.
+  // Fixed it by switching the nav to position:fixed instead — but a fixed
+  // element is taken out of flow, so we push page content down by exactly
+  // its real rendered height (varies slightly by screen size / font
+  // loading), and re-measure on resize.
+  function syncNavHeight(){
+    const nav = document.getElementById('siteNav');
+    if(nav) document.documentElement.style.setProperty('--nav-h', nav.offsetHeight + 'px');
+  }
+  syncNavHeight();
+  window.addEventListener('resize', syncNavHeight);
+
   document.getElementById('footBrochure').href = COMPANY_BROCHURE;
 
   // ---- render property strip (home) ----
@@ -93,10 +115,15 @@ function init(){
   renderGrid();
 
   // ---- testimonials ----
-  document.getElementById('testimonialsPreviewGrid').innerHTML = TESTIMONIALS.slice(0,3).map(t=> testimonialCard(t)).join('');
-  document.getElementById('testimonialsFullGrid').innerHTML = TESTIMONIALS.map(t=> testimonialCard(t)).join('');
+  document.getElementById('testimonialsPreviewGrid').innerHTML = TESTIMONIALS.slice(0,3).map((t,i)=> testimonialCard(t, 'd'+i)).join('');
+  document.getElementById('testimonialsFullGrid').innerHTML = TESTIMONIALS.map((t,i)=> testimonialCard(t, 'd'+(i%4))).join('');
 
   bindPropertyButtons();
+
+  // Newly-injected .fup/.mask-h cards above (testimonials etc.) need to be
+  // handed to the scroll-reveal observer, or they stay invisible — see the
+  // fix + explanation in animations.js.
+  if(window.__refreshScrollReveal) window.__refreshScrollReveal();
 
   // ---- page switching ----
   document.querySelectorAll('.nav-go, [data-page]').forEach(el=>{
@@ -142,6 +169,25 @@ function bindPropertyButtons(){
         navigator.clipboard.writeText(url).then(()=> showToast('Property link copied!'));
       } else {
         prompt('Copy this link:', url);
+      }
+    };
+  });
+  // NOTE: there's no actual 360°/Matterport/Pannellum link wired to any
+  // property yet (data.js just has a has3D:true flag, no real URL) — so
+  // rather than open a broken viewer, this opens WhatsApp with the property
+  // pre-filled so a consultant can send the real walkthrough link. Once you
+  // add a real `threeDUrl` field per property in data.js, tell me and I'll
+  // make this button open that link directly in a lightbox instead.
+  document.querySelectorAll('.walkthrough-btn').forEach(btn=>{
+    btn.onclick = () => {
+      const id = btn.dataset.id;
+      const p = PROPERTIES.find(x=> x.id===id);
+      if(!p) return;
+      if(p.threeDUrl){
+        window.open(p.threeDUrl, '_blank', 'noopener');
+      } else {
+        const msg = encodeURIComponent(`Hi, can you share the 3D walkthrough link for ${p.name} (${p.location})?`);
+        window.open(`https://wa.me/919953913605?text=${msg}`, '_blank', 'noopener');
       }
     };
   });
@@ -274,32 +320,12 @@ function initAskAI(){
   document.getElementById('chatInput').addEventListener('keydown', e=>{ if(e.key==='Enter') sendChat(); });
 }
 
-// ---------------- CALCULATOR TOOLS (ported from original template) ----------------
+// ---------------- CALCULATOR (12 tools, modal-based — ported from Nilaya template) ----------------
 function initCalculator(){
   const inr = n => '₹' + Math.round(n).toLocaleString('en-IN');
   const num = v => parseFloat(v) || 0;
 
   const tools = {
-    propertyComparison:{
-      title:'Property Comparison', sub:'Compare two properties on price-per-sqft and total cost.',
-      fields:[
-        {id:'nameA', label:'Property A name', type:'text', ph:'e.g. Property A'},
-        {id:'priceA', label:'Property A price (₹)', type:'number', ph:'18000000'},
-        {id:'areaA', label:'Property A area (sqft)', type:'number', ph:'3200'},
-        {id:'nameB', label:'Property B name', type:'text', ph:'e.g. Other listing'},
-        {id:'priceB', label:'Property B price (₹)', type:'number', ph:'16500000'},
-        {id:'areaB', label:'Property B area (sqft)', type:'number', ph:'2800'},
-      ],
-      calc:(v)=>{
-        const psA = num(v.priceA)/num(v.areaA), psB = num(v.priceB)/num(v.areaB);
-        const better = psA <= psB ? (v.nameA||'Property A') : (v.nameB||'Property B');
-        return [
-          [`${v.nameA||'Property A'} — price/sqft`, inr(psA)],
-          [`${v.nameB||'Property B'} — price/sqft`, inr(psB)],
-          ['Better value on price/sqft', better],
-        ];
-      }
-    },
     emi:{
       title:'EMI Calculator', sub:'Monthly instalment and total interest breakdown.',
       fields:[
@@ -337,11 +363,31 @@ function initCalculator(){
         ];
       }
     },
+    propertyComparison:{
+      title:'Property Comparison', sub:'Compare two properties on price-per-sqft and total cost.',
+      fields:[
+        {id:'nameA', label:'Property A name', type:'text', ph:'e.g. DLF The Skycourt'},
+        {id:'priceA', label:'Property A price (₹)', type:'number', ph:'22000000'},
+        {id:'areaA', label:'Property A area (sqft)', type:'number', ph:'1929'},
+        {id:'nameB', label:'Property B name', type:'text', ph:'e.g. Other listing'},
+        {id:'priceB', label:'Property B price (₹)', type:'number', ph:'21000000'},
+        {id:'areaB', label:'Property B area (sqft)', type:'number', ph:'1850'},
+      ],
+      calc:(v)=>{
+        const psA = num(v.priceA)/num(v.areaA), psB = num(v.priceB)/num(v.areaB);
+        const better = psA <= psB ? (v.nameA||'Property A') : (v.nameB||'Property B');
+        return [
+          [`${v.nameA||'Property A'} — price/sqft`, inr(psA)],
+          [`${v.nameB||'Property B'} — price/sqft`, inr(psB)],
+          ['Better value on price/sqft', better],
+        ];
+      }
+    },
     roi:{
       title:'ROI Calculator', sub:'Return on a property investment.',
       fields:[
         {id:'buy', label:'Purchase price (₹)', type:'number', ph:'5000000'},
-        {id:'current', label:'Current / sale value (₹)', type:'number', ph:'6000000'},
+        {id:'current', label:'Current / sale value (₹)', type:'number', ph:'6500000'},
         {id:'years', label:'Holding period (years)', type:'number', ph:'4'},
       ],
       calc:(v)=>{
@@ -357,9 +403,9 @@ function initCalculator(){
     rentalYield:{
       title:'Rental Yield', sub:'Gross and net yield from rent.',
       fields:[
-        {id:'value', label:'Property value (₹)', type:'number', ph:'5500000'},
+        {id:'value', label:'Property value (₹)', type:'number', ph:'5000000'},
         {id:'rent', label:'Monthly rent (₹)', type:'number', ph:'22000'},
-        {id:'expenses', label:'Annual maintenance/expenses (₹)', type:'number', ph:'40000'},
+        {id:'expenses', label:'Annual maintenance/expenses (₹)', type:'number', ph:'30000'},
       ],
       calc:(v)=>{
         const val=num(v.value), annualRent=num(v.rent)*12, exp=num(v.expenses);
@@ -374,8 +420,8 @@ function initCalculator(){
     rentVsBuy:{
       title:'Rent vs Buy', sub:'Which is smarter over your time horizon?',
       fields:[
-        {id:'rent', label:'Current monthly rent (₹)', type:'number', ph:'18000'},
-        {id:'price', label:'Property price (₹)', type:'number', ph:'5500000'},
+        {id:'rent', label:'Current monthly rent (₹)', type:'number', ph:'20000'},
+        {id:'price', label:'Property price (₹)', type:'number', ph:'5000000'},
         {id:'down', label:'Down payment (%)', type:'number', ph:'20'},
         {id:'rate', label:'Loan interest rate (% p.a.)', type:'number', ph:'8.5', step:'0.1'},
         {id:'years', label:'Years you plan to stay', type:'number', ph:'10'},
@@ -398,9 +444,9 @@ function initCalculator(){
     sipVsProperty:{
       title:'SIP vs Property', sub:'Mutual fund SIP growth vs real estate appreciation.',
       fields:[
-        {id:'sip', label:'Monthly SIP amount (₹)', type:'number', ph:'25000'},
+        {id:'sip', label:'Monthly SIP amount (₹)', type:'number', ph:'20000'},
         {id:'sipReturn', label:'Expected SIP return (% p.a.)', type:'number', ph:'12', step:'0.1'},
-        {id:'propValue', label:'Alternative: property value (₹)', type:'number', ph:'5500000'},
+        {id:'propValue', label:'Alternative: property value (₹)', type:'number', ph:'5000000'},
         {id:'propReturn', label:'Expected property appreciation (% p.a.)', type:'number', ph:'7', step:'0.1'},
         {id:'years', label:'Years', type:'number', ph:'10'},
       ],
@@ -432,7 +478,7 @@ function initCalculator(){
     gst:{
       title:'GST Calculator', sub:'Under-construction vs ready-to-move.',
       fields:[
-        {id:'value', label:'Property value (₹)', type:'number', ph:'5500000'},
+        {id:'value', label:'Property value (₹)', type:'number', ph:'5000000'},
         {id:'type', label:'Property type', type:'select', options:[['ready','Ready to move / completed (no GST)'],['affordable','Under-construction — affordable housing (1%)'],['nonaffordable','Under-construction — other (5%)']]},
       ],
       calc:(v)=>{
@@ -449,7 +495,7 @@ function initCalculator(){
     costSheet:{
       title:'Cost Sheet Builder', sub:'The true all-in cost, beyond the sticker price.',
       fields:[
-        {id:'base', label:'Base property price (₹)', type:'number', ph:'5500000'},
+        {id:'base', label:'Base property price (₹)', type:'number', ph:'5000000'},
         {id:'stampPct', label:'Stamp duty (%)', type:'number', ph:'5', step:'0.1'},
         {id:'regPct', label:'Registration (%)', type:'number', ph:'1', step:'0.1'},
         {id:'other', label:'Other charges — parking, deposit, etc. (₹)', type:'number', ph:'150000'},
@@ -468,12 +514,12 @@ function initCalculator(){
     stampDuty:{
       title:'Stamp Duty', sub:'Approximate state-wise duty + registration.',
       fields:[
-        {id:'value', label:'Property value (₹)', type:'number', ph:'5500000'},
-        {id:'state', label:'State', type:'select', options:[['hr','Haryana (5% + 1% reg.)'],['up','Uttar Pradesh (7% + 1% reg.)'],['ka','Karnataka (5% + 1% reg.)'],['mh','Maharashtra (6% + 1% reg.)'],['tn','Tamil Nadu (7% + 1% reg.)']]},
+        {id:'value', label:'Property value (₹)', type:'number', ph:'5000000'},
+        {id:'state', label:'State', type:'select', options:[['hr','Haryana (6% + 1% reg.)'],['up','Uttar Pradesh (7% + 1% reg.)'],['ka','Karnataka (5% + 1% reg.)'],['mh','Maharashtra (6% + 1% reg.)'],['dl','Delhi (6% + 1% reg.)'],['tn','Tamil Nadu (7% + 1% reg.)']]},
       ],
       calc:(v)=>{
-        const rates = {hr:0.05, up:0.07, ka:0.05, mh:0.06, tn:0.07};
-        const val=num(v.value), duty=val*(rates[v.state]||0.05), reg=val*0.01;
+        const rates = {hr:0.06, up:0.07, ka:0.05, mh:0.06, dl:0.06, tn:0.07};
+        const val=num(v.value), duty=val*(rates[v.state]||0.06), reg=val*0.01;
         return [
           ['Stamp duty', inr(duty)],
           ['Registration fee (~1%)', inr(reg)],
@@ -504,7 +550,7 @@ function initCalculator(){
   };
 
   const modal = document.getElementById('toolModal');
-  const modalCard = document.getElementById('toolModalCard');
+  const card = document.getElementById('toolModalCard');
   const veil = document.getElementById('toolModalVeil');
   if(!modal) return;
 
@@ -517,7 +563,7 @@ function initCalculator(){
       }
       return `<div class="tf-field"><label>${f.label}</label><input id="tf_${f.id}" type="${f.type}" placeholder="${f.ph||''}" ${f.step?`step="${f.step}"`:''}></div>`;
     }).join('');
-    modalCard.innerHTML = `
+    card.innerHTML = `
       <button class="tool-modal-close" id="tmClose">✕</button>
       <h3>${t.title}</h3>
       <div class="sub">${t.sub}</div>
@@ -542,25 +588,6 @@ function initCalculator(){
 
   document.querySelectorAll('.tool-card').forEach(btn=>{
     btn.addEventListener('click', ()=> openTool(btn.dataset.tool));
-  });
-
-  // ---- FAQ tabs + accordion ----
-  document.querySelectorAll('.faq-item').forEach(item=>{
-    item.querySelector('.faq-q').addEventListener('click', ()=>{
-      const scope = item.closest('.faq-group');
-      const wasOpen = item.classList.contains('open');
-      scope.querySelectorAll('.faq-item').forEach(f=> f.classList.remove('open'));
-      if(!wasOpen) item.classList.add('open');
-    });
-  });
-  document.querySelectorAll('.faq-tab').forEach(tab=>{
-    tab.addEventListener('click', ()=>{
-      const tabs = tab.parentElement.querySelectorAll('.faq-tab');
-      tabs.forEach(t=> t.classList.remove('active'));
-      tab.classList.add('active');
-      const container = tab.closest('section').querySelectorAll('.faq-group');
-      container.forEach(g=> g.classList.toggle('active', g.id === tab.dataset.group));
-    });
   });
 }
 
