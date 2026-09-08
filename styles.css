@@ -309,7 +309,8 @@ footer{padding:50px 0 24px;background:var(--bg2);border-top:1px solid rgba(245,2
 .surface-light .calc-breakdown .row{border-color:rgba(11,37,64,.1);}
 
 /* ---------- STANDALONE PROPERTY VIEW (deep link) ---------- */
-#propertyStandalone{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 20px;}
+#propertyStandalone{display:none;min-height:100vh;align-items:center;justify-content:center;padding:40px 20px;}
+#propertyStandalone.show{display:flex;}
 .standalone-card{max-width:640px;width:100%;background:var(--bg2);border:1px solid rgba(245,248,255,.12);border-radius:22px;overflow:hidden;}
 .standalone-card .simg{aspect-ratio:16/10;}
 .standalone-card .simg img{width:100%;height:100%;object-fit:cover;}

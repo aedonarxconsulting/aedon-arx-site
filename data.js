@@ -273,6 +273,13 @@ function localAedonReply(userMessage) {
     return `Abhi yeh kuch options hain:\n${formatMatchesForReply(top)}\n\nKisi specific city, budget ya BHK ke hisaab se dekhna ho toh bata do, narrow kar deta hoon.`;
   }
 
+  // "I can't speak/understand English" (or the Hindi equivalent) is a
+  // direct, specific ask — it was previously falling through to the generic
+  // filter-less reply, which is in Hindi anyway but ignores what was said.
+  if (/can'?t speak english|do not speak english|don'?t speak english|no english|english nahi|angrezi nahi/.test(t)) {
+    return "Koi baat nahi, Hindi mein hi baat karte hain. Bas itna bata do — kaunsa area, budget kitna, aur agar ghar chahiye toh kitne BHK. Jaise \"Noida mein 3 BHK, 1 crore tak\" — turant options dikha deta hoon.";
+  }
+
   const filters = parseTextToFilters(raw);
   const hasAnyFilter = filters.location || filters.type || filters.bedrooms || (filters.maxBudget && filters.maxBudget < 100000000);
   const matches = matchProperties(filters);

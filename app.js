@@ -217,7 +217,7 @@ function showStandaloneProperty(id){
   document.getElementById('fabChat').style.display = 'none';
   document.querySelectorAll('.page').forEach(pg=> pg.classList.remove('active'));
   const overlay = document.getElementById('propertyStandalone');
-  overlay.style.display = 'flex';
+  overlay.classList.add('show');
   if(!p){
     document.getElementById('standaloneCard').innerHTML = `<div class="sbody"><h1>Property not found</h1><span class="standalone-back" id="backToSite">← Back to Aedon Arx Consulting</span></div>`;
   } else {
@@ -243,7 +243,7 @@ function showStandaloneProperty(id){
   }
   document.getElementById('backToSite').addEventListener('click', ()=>{
     history.pushState({}, '', location.pathname);
-    overlay.style.display = 'none';
+    overlay.classList.remove('show');
     document.getElementById('siteNav').style.display = 'flex';
     document.getElementById('siteFooter').style.display = 'block';
     document.getElementById('fabChat').style.display = 'flex';
