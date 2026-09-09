@@ -63,7 +63,7 @@
   });
 
   // ---------- HERO WORD-BY-WORD STAGGER ----------
-  document.querySelectorAll('#heroHeadline .word').forEach((w,i)=>{ w.style.animationDelay = (i*0.09) + 's'; });
+  // (word-by-word stagger removed — headline now animates as one unit with the tagline)
 
   // ---------- STAT COUNTERS ----------
   const counters = document.querySelectorAll('.stat-big[data-count]');
