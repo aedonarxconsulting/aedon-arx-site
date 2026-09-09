@@ -78,7 +78,7 @@ nav.links.mobile-open{display:flex;position:absolute;top:100%;left:0;right:0;fle
 .hero-headline-stacked{font-size:clamp(2.4rem,9vw,4.2rem);text-transform:none;line-height:1.05;text-align:center;color:#87CEEB;}
 .hero-headline-stacked .word{display:block;}
 .hero-br{display:none;}
-.hero-sub{margin-top:18px;color:#87CEEB;font-family:'Inter',sans-serif;font-size:1rem;max-width:420px;}
+.hero-sub{margin-top:18px;color:#87CEEB;font-family:'Inter',sans-serif;font-size:1rem;max-width:420px;background:rgba(0,0,0,0.45);padding:10px 22px;border-radius:999px;backdrop-filter:blur(4px);}
 .hero-row-stacked{flex-direction:column;width:100%;max-width:360px;gap:14px;margin-top:34px;}
 .btn-pill-wide{width:100%;justify-content:center;border-radius:999px;padding:16px 28px;letter-spacing:.06em;text-transform:uppercase;font-size:.78rem;background:transparent;}
 
