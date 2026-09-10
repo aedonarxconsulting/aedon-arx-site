@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aedon Arx Consulting | Real Estate Consultants — Gurugram</title>
+<title>Aedon Arx Consulting | Real Estate Consultants — Pan India</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
@@ -19,7 +19,7 @@
 <div class="cursor-ring" id="cursorRing"></div>
 
 <header class="nav" id="siteNav">
-  <div class="brand">
+  <div class="brand nav-go" data-page="home" style="cursor:pointer;">
     <div class="brand-icon">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3l9 17H3L12 3z" stroke="#D9B45C" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 9l5 8H7l5-8z" fill="#D9B45C"/></svg>
     </div>
@@ -35,6 +35,7 @@
     <button data-page="calculator">Calculator</button>
     <button data-page="testimonials">Testimonials</button>
     <button data-page="contact">Contact</button>
+    <button data-page="wishlist">Wishlist ❤</button>
   </nav>
   <div class="menu-btn" id="menuBtn"><span></span></div>
 </header>
@@ -64,13 +65,13 @@
       <span><i></i>Verified Consultant/Agent</span>
       <span><i></i>5 Years Of Experience</span>
       <span><i></i>Residential &amp; Commercial</span>
-      <span><i></i>Gurugram • Noida • Faridabad • Tiruppur</span>
+      <span><i></i>Pan India Presence • HQ Gurugram</span>
       <span><i></i>New Projects Specialist</span>
       <span><i></i>We Value Relationship</span>
       <span><i></i>Verified Consultant/Agent</span>
       <span><i></i>5 Years Of Experience</span>
       <span><i></i>Residential &amp; Commercial</span>
-      <span><i></i>Gurugram • Noida • Faridabad • Tiruppur</span>
+      <span><i></i>Pan India Presence • HQ Gurugram</span>
       <span><i></i>New Projects Specialist</span>
       <span><i></i>We Value Relationship</span>
     </div>
@@ -144,7 +145,7 @@
           <div class="ai-cta-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#D9B45C" stroke-width="1.7"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
           <h3>Connect to a Consultant</h3>
           <p class="muted" style="font-size:.86rem;margin:8px 0 18px;">Speak directly with our team — call, WhatsApp or leave your details and we'll reach out.</p>
-          <button class="btn nav-go" data-page="contact">Connect to Consultant</button>
+          <button class="btn" id="connectConsultantBtn">Connect to Consultant</button>
         </div>
         <div class="cta-duo-card">
           <div class="ai-cta-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#D9B45C" stroke-width="1.7"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="9" cy="11" r="1" fill="#D9B45C" stroke="none"/><circle cx="13" cy="11" r="1" fill="#D9B45C" stroke="none"/><circle cx="17" cy="11" r="1" fill="#D9B45C" stroke="none"/></svg></div>
@@ -178,7 +179,7 @@
             <span>What services does Aedon Arx Consulting offer?</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
           </button>
-          <div class="faq-a"><p>We help you buy, sell or lease residential and commercial property across Gurugram, Noida, Faridabad and Tiruppur — shortlisting, site visits, paperwork, price negotiation and handover, start to finish.</p></div>
+          <div class="faq-a"><p>We help you buy, sell or lease residential and commercial property Pan India — currently active across Gurugram, Noida, Faridabad and Tiruppur, with new cities added regularly. Shortlisting, site visits, paperwork, price negotiation and handover, start to finish.</p></div>
         </div>
         <div class="faq-item fup">
           <button class="faq-q">
@@ -426,6 +427,26 @@
   <div class="tool-modal-card" id="toolModalCard"></div>
 </div>
 
+<!-- ============================= WISHLIST ============================= -->
+<div class="page" data-page="wishlist">
+  <section class="page-hero">
+    <div class="bg"><img src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=1800&q=80" alt="Wishlist backdrop"></div>
+    <div class="veil"></div>
+    <div class="wrap">
+      <span class="pill fup">Saved For You</span>
+      <h1 class="mask-h"><span>Your Wishlist</span></h1>
+      <p class="fup d1">Properties you've saved for later — pick up right where you left off.</p>
+    </div>
+  </section>
+
+  <section class="surface-light">
+    <div class="wrap">
+      <div class="property-grid" id="wishlistGrid"></div>
+      <div class="no-results" id="wishlistEmpty" style="display:none;">No saved properties yet. Tap the ❤ on any listing to add it here.</div>
+    </div>
+  </section>
+</div>
+
 <!-- ============================= TESTIMONIALS ============================= -->
 <div class="page" data-page="testimonials">
   <section class="page-hero">
@@ -434,7 +455,7 @@
     <div class="wrap">
       <span class="pill fup">Client Stories</span>
       <h1 class="mask-h"><span>What Our Clients Say</span></h1>
-      <p class="fup d1">Real feedback from clients we've worked with across Gurugram, Noida, Faridabad and Tiruppur.</p>
+      <p class="fup d1">Real feedback from clients we've worked with Pan India, including Gurugram, Noida, Faridabad and Tiruppur.</p>
     </div>
   </section>
 
@@ -483,7 +504,7 @@
             </div>
             <div class="info-row">
               <div class="ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
-              <div><b>Location</b><span class="v">Gurugram, Haryana, India</span></div>
+              <div><b>Headquarters</b><span class="v">Gurugram, Haryana, India</span></div>
             </div>
             <div class="info-row">
               <div class="ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
@@ -538,7 +559,7 @@
         <li><button class="nav-go linklike" data-page="testimonials">Client Stories</button></li>
         <li><button class="nav-go linklike" data-page="amenities">All Properties</button></li>
       </ul></div>
-      <div><h4>Contact</h4><ul><li><a href="tel:+919953913605">+91 99539 13605</a></li><li><a href="mailto:connect@aedonarxconsulting.com">connect@aedonarxconsulting.com</a></li><li>Gurugram, Haryana, India</li></ul></div>
+      <div><h4>Contact</h4><ul><li><a href="tel:+919953913605">+91 99539 13605</a></li><li><a href="mailto:connect@aedonarxconsulting.com">connect@aedonarxconsulting.com</a></li><li>Headquarters: Gurugram, Haryana, India</li><li>Serving clients Pan India</li></ul></div>
     </div>
     <div class="foot-bottom"><p>© 2026 AEDON ARX CONSULTING. All rights reserved.</p><p>Design &amp; build — Next Gen Web</p></div>
   </div>

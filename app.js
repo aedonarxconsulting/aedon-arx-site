@@ -78,7 +78,7 @@ function stripItemHtml(p){
 }
 
 const HERO_AMENITY_IMAGES = [
-  { img: 'https://images.unsplash.com/photo-1519874179391-eaa4e3ae02c7?auto=format&fit=crop&w=900&q=80', label: 'Swimming Pool' },
+  { img: 'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=900&q=80', label: 'Swimming Pool' },
   { img: 'https://images.unsplash.com/photo-1622021142947-da7dedc7c39a?auto=format&fit=crop&w=900&q=80', label: 'Clubhouse' },
   { img: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=80', label: 'Gym' }
 ];
@@ -115,8 +115,8 @@ function init(){
 
   // ---- render property strip (home) ----
   document.getElementById('propertyStrip').innerHTML =
-    PROPERTIES.slice(0,2).map(stripItemHtml).join('') +
-    HERO_AMENITY_IMAGES.map(amenityStripItemHtml).join('');
+    HERO_AMENITY_IMAGES.map(amenityStripItemHtml).join('') +
+    PROPERTIES.slice(0,2).map(stripItemHtml).join('');
 
   // ---- render best properties (home) ----
   document.getElementById('bestPropertiesGrid').innerHTML = PROPERTIES.slice(0,6).map(propertyCardHtml).join('');
@@ -157,7 +157,7 @@ function init(){
 
   // ---- page switching ----
   document.querySelectorAll('.nav-go, [data-page]').forEach(el=>{
-    if(el.tagName === 'BUTTON' && el.dataset.page && !el.classList.contains('view-property-btn')){
+    if((el.tagName === 'BUTTON' || el.classList.contains('brand')) && el.dataset.page && !el.classList.contains('view-property-btn')){
       el.addEventListener('click', ()=> goToPage(el.dataset.page));
     }
   });
@@ -254,6 +254,23 @@ function goToPage(page, skipHash){
     const statsRow = activePage.querySelector('.stats-row');
     if(statsRow && window.__startCounters) window.__startCounters();
   }
+  if(page === 'wishlist') renderWishlistPage();
+}
+
+function renderWishlistPage(){
+  const ids = getWishlist();
+  const saved = PROPERTIES.filter(p=> ids.includes(p.id));
+  const grid = document.getElementById('wishlistGrid');
+  const empty = document.getElementById('wishlistEmpty');
+  if(!grid) return;
+  if(saved.length === 0){
+    grid.innerHTML = '';
+    empty.style.display = 'block';
+  } else {
+    empty.style.display = 'none';
+    grid.innerHTML = saved.map(propertyCardHtml).join('');
+    bindPropertyButtons();
+  }
 }
 
 // ---------------- STANDALONE PROPERTY DEEP LINK ----------------
@@ -266,38 +283,61 @@ function showStandaloneProperty(id){
   const overlay = document.getElementById('propertyStandalone');
   overlay.classList.add('show');
   window.scrollTo({top:0});
+  const closeOverlay = ()=>{
+    history.pushState({}, '', location.pathname);
+    overlay.classList.remove('show');
+    document.getElementById('siteNav').style.display = 'flex';
+    document.getElementById('siteFooter').style.display = 'block';
+    document.getElementById('fabChat').style.display = 'flex';
+    goToPage('home', true);
+  };
   if(!p){
-    document.getElementById('standaloneCard').innerHTML = `<div class="sbody"><h1>Property not found</h1><span class="standalone-back" id="backToSite">← Back to Aedon Arx Consulting</span></div>`;
+    document.getElementById('standaloneCard').innerHTML = `
+      <div class="shead">
+        <span class="standalone-back" id="backToSite">← Back</span>
+        <div class="standalone-brand nav-go-home"><div class="brand-icon" style="width:30px;height:30px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 3l9 17H3L12 3z" stroke="#D9B45C" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 9l5 8H7l5-8z" fill="#D9B45C"/></svg></div><div class="brand-name">Aedon Arx Consulting</div></div>
+      </div>
+      <div class="sbody"><h1>Property not found</h1></div>`;
   } else {
     const gallery = [p.img, ...GENERIC_GALLERY_IMAGES];
     const mapQuery = encodeURIComponent(`${p.name}, ${p.location}`);
     const related = PROPERTIES.filter(x=> x.id !== p.id && x.location === p.location).slice(0,3);
     const relatedFallback = related.length ? related : PROPERTIES.filter(x=> x.id !== p.id).slice(0,3);
+    const perks = ['Clubhouse & Pool','Fitness Centre',"Kids' Play Area",'24x7 Security','Covered Parking','Landscaped Gardens'];
     document.getElementById('standaloneCard').innerHTML = `
-      <div class="sgallery">
-        <div class="sgallery-main"><img id="sgalleryMain" src="${gallery[0]}" alt="${p.name}"></div>
-        <div class="sgallery-thumbs">
-          ${gallery.map((g,i)=> `<img src="${g}" alt="${p.name} photo ${i+1}" class="sgallery-thumb${i===0?' active':''}" data-src="${g}">`).join('')}
+      <div class="shead">
+        <span class="standalone-back" id="backToSite">← Back</span>
+        <div class="standalone-brand nav-go-home"><div class="brand-icon" style="width:30px;height:30px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 3l9 17H3L12 3z" stroke="#D9B45C" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 9l5 8H7l5-8z" fill="#D9B45C"/></svg></div><div class="brand-name">Aedon Arx Consulting</div></div>
+        <button class="wishlist-btn standalone-wishlist" data-id="${p.id}" aria-label="Save to wishlist"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></button>
+      </div>
+      <div class="sgrid">
+        <div class="sdetails">
+          <h1>${p.name}</h1>
+          <div class="ploc"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>${p.location}</div>
+          <div class="pspecs" style="margin-top:10px;">${p.bedrooms ? `<span>🛏 ${p.bedrooms} BHK</span>` : ''}<span>▢ ${p.area}</span>${p.has3D ? '<span>🎥 3D Walkthrough Available</span>' : ''}</div>
+          <div class="sprice">${p.priceLabel}</div>
+          <p class="muted" style="font-size:.9rem;line-height:1.65;">${p.desc} This ${p.type.toLowerCase()} property comes with verified documentation and is ready for site visits. Our consultant can walk you through the exact configuration, floor plan, pricing breakdown, payment schedule and the surrounding neighbourhood — schools, hospitals and transit links — on request. All listings shared by Aedon Arx Consulting are checked and verified before they reach you, from first enquiry through to final handover.</p>
+          <h3 style="font-size:.9rem;margin:20px 0 10px;">Amenities</h3>
+          <div class="spotlight-amenities" style="margin-bottom:4px;">
+            ${perks.map(a=> `<span class="amenity-chip">${a}</span>`).join('')}
+          </div>
+          <div class="sactions">
+            <a href="${p.brochure}" target="_blank" rel="noopener" class="btn">Download Brochure</a>
+            ${p.has3D ? `<button class="btn btn-outline walkthrough-btn" data-id="${p.id}">🎥 3D Walkthrough</button>` : ''}
+            <a href="tel:+919953913605" class="btn btn-outline">Call Us</a>
+            <a href="https://wa.me/919953913605?text=${encodeURIComponent('Hi, I\'m interested in '+p.name+' ('+p.location+').')}" target="_blank" rel="noopener" class="btn btn-outline">WhatsApp</a>
+          </div>
+        </div>
+        <div class="sgallery">
+          <div class="sgallery-main"><img id="sgalleryMain" src="${gallery[0]}" alt="${p.name}"></div>
+          <div class="sgallery-thumbs">
+            ${gallery.map((g,i)=> `<img src="${g}" alt="${p.name} photo ${i+1}" class="sgallery-thumb${i===0?' active':''}" data-src="${g}">`).join('')}
+          </div>
         </div>
       </div>
       <div class="sbody">
-        <div class="standalone-brand">
-          <div class="brand-icon" style="width:32px;height:32px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 3l9 17H3L12 3z" stroke="#D9B45C" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 9l5 8H7l5-8z" fill="#D9B45C"/></svg></div>
-          <div class="brand-name">Aedon Arx Consulting</div>
-          <button class="wishlist-btn standalone-wishlist" data-id="${p.id}" aria-label="Save to wishlist" style="position:static;margin-left:auto;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></button>
-        </div>
-        <h1>${p.name}</h1>
-        <div class="ploc"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>${p.location}</div>
-        <div class="pspecs" style="margin-top:10px;">${p.bedrooms ? `<span>🛏 ${p.bedrooms} BHK</span>` : ''}<span>▢ ${p.area}</span>${p.has3D ? '<span>🎥 3D Walkthrough Available</span>' : ''}</div>
-        <div class="sprice">${p.priceLabel}</div>
-        <p class="muted" style="font-size:.9rem;line-height:1.6;">${p.desc} This ${p.type.toLowerCase()} property comes with verified documentation and is ready for site visits — our consultant can walk you through configuration, pricing breakdown and the surrounding neighbourhood on request.</p>
-        <div class="sactions">
-          <a href="${p.brochure}" target="_blank" rel="noopener" class="btn">Download Brochure</a>
-          <a href="tel:+919953913605" class="btn btn-outline">Call Us</a>
-          <a href="https://wa.me/919953913605?text=${encodeURIComponent('Hi, I\'m interested in '+p.name+' ('+p.location+').')}" target="_blank" rel="noopener" class="btn btn-outline">WhatsApp</a>
-        </div>
         <div class="smap">
-          <h3 style="font-size:.95rem;margin:26px 0 10px;">Location</h3>
+          <h3 style="font-size:.95rem;margin:0 0 10px;">Location</h3>
           <div class="map-embed"><iframe src="https://www.google.com/maps?q=${mapQuery}&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
         </div>
         <div class="srelated">
@@ -308,7 +348,6 @@ function showStandaloneProperty(id){
               <div class="srelated-body"><b>${r.name}</b><span>${r.location} • ${r.priceLabel}</span></div>
             </div>`).join('')}</div>
         </div>
-        <span class="standalone-back" id="backToSite">← Back to full Aedon Arx Consulting site</span>
       </div>`;
 
     document.getElementById('standaloneCard').querySelectorAll('.sgallery-thumb').forEach(thumb=>{
@@ -327,6 +366,8 @@ function showStandaloneProperty(id){
         showToast(getWishlist().includes(p.id) ? 'Added to wishlist' : 'Removed from wishlist');
       };
     }
+    const wtBtn = document.getElementById('standaloneCard').querySelector('.walkthrough-btn');
+    if(wtBtn) wtBtn.onclick = ()=> showToast('3D walkthrough link will be shared by our consultant shortly.');
     document.getElementById('standaloneCard').querySelectorAll('.srelated-card').forEach(card=>{
       card.onclick = ()=>{
         const rid = card.dataset.id;
@@ -335,14 +376,8 @@ function showStandaloneProperty(id){
       };
     });
   }
-  document.getElementById('backToSite').addEventListener('click', ()=>{
-    history.pushState({}, '', location.pathname);
-    overlay.classList.remove('show');
-    document.getElementById('siteNav').style.display = 'flex';
-    document.getElementById('siteFooter').style.display = 'block';
-    document.getElementById('fabChat').style.display = 'flex';
-    goToPage('home', true);
-  });
+  document.getElementById('backToSite').addEventListener('click', closeOverlay);
+  document.querySelectorAll('.nav-go-home').forEach(el=> el.addEventListener('click', closeOverlay));
 }
 
 // ---------------- ASK AI (form + chat) ----------------
@@ -731,6 +766,17 @@ function initChatWidget(){
     body.appendChild(wrap); body.scrollTop = body.scrollHeight;
   }
   let greeted = false, chatHistory = [];
+  const connectBtn = document.getElementById('connectConsultantBtn');
+  if(connectBtn){
+    connectBtn.addEventListener('click', ()=>{
+      panel.classList.add('open');
+      if(!greeted){
+        greeted = true;
+        addMsg("Hi! I'm the Aedon Arx assistant. How can I help you today?", 'bot');
+        addQuickReplies(['Show me properties', 'Talk to a consultant', 'What areas do you serve?']);
+      }
+    });
+  }
   fab.addEventListener('click', ()=>{
     panel.classList.toggle('open');
     if(!greeted){
