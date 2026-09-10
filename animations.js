@@ -127,4 +127,16 @@
   } else if(!hasIO){
     startCounters();
   }
+
+  // ---------- HERO HEADLINE/TAGLINE — REPEAT DROP-IN EVERY 10s ----------
+  const homeHero = document.getElementById('homeHero');
+  if(homeHero){
+    const playHeroAnim = ()=>{
+      homeHero.classList.remove('play-anim');
+      void homeHero.offsetWidth; // force reflow so the removal registers
+      requestAnimationFrame(()=>{ homeHero.classList.add('play-anim'); });
+    };
+    playHeroAnim();
+    setInterval(playHeroAnim, 10000);
+  }
 })();

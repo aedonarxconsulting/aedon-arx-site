@@ -12,7 +12,7 @@ const PROPERTIES = [
     location: 'Gurugram',
     bedrooms: 3,
     price: 22000000, // ~2.2 Cr
-    priceLabel: '₹2.2 Cr',
+    priceLabel: '₹2.2 Cr Onwards',
     area: '1929 sq ft',
     img: 'https://images.unsplash.com/photo-1760235674447-fe0cc115b697?auto=format&fit=crop&w=900&q=80',
     desc: 'A premium high-rise 3 BHK residence in Sector 86, Gurugram, close to the Dwarka Expressway.',
@@ -26,7 +26,7 @@ const PROPERTIES = [
     location: 'Gurugram',
     bedrooms: 3,
     price: 21000000, // ~2.1 Cr
-    priceLabel: '₹2.1 Cr',
+    priceLabel: '₹2.1 Cr Onwards',
     area: '1850 sq ft',
     img: 'https://images.unsplash.com/photo-1759162788764-f40075c8857f?auto=format&fit=crop&w=900&q=80',
     desc: 'A new-launch residential development in Sector 86, Gurugram, with RERA registration in place.',
@@ -40,7 +40,7 @@ const PROPERTIES = [
     location: 'Gurugram',
     bedrooms: null,
     price: 16000000, // 1.6 Cr
-    priceLabel: '₹1.6 Cr',
+    priceLabel: '₹1.6 Cr Onwards',
     area: '1500 sq ft office',
     img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=80',
     desc: 'Fitted office space in Sector 89, Gurugram\'s emerging commercial and business-park corridor.',
@@ -54,7 +54,7 @@ const PROPERTIES = [
     location: 'Noida',
     bedrooms: 2,
     price: 5500000, // 55 Lakh
-    priceLabel: '₹55 Lakh',
+    priceLabel: '₹55 Lakh Onwards',
     area: '1170 sq ft',
     img: 'https://images.unsplash.com/photo-1758193431351-68538bf55ec3?auto=format&fit=crop&w=900&q=80',
     desc: 'A 2 BHK apartment in Sector 118, Noida, close to the Noida Authority Sports Complex.',
@@ -68,7 +68,7 @@ const PROPERTIES = [
     location: 'Noida',
     bedrooms: 3,
     price: 5800000, // 58 Lakh
-    priceLabel: '₹58 Lakh',
+    priceLabel: '₹58 Lakh Onwards',
     area: '1350 sq ft',
     img: 'https://images.unsplash.com/photo-1757125505346-2d71c70e6003?auto=format&fit=crop&w=900&q=80',
     desc: 'A spacious 3 BHK residence in Sector 75, Noida, surrounded by established neighbourhoods.',
@@ -82,7 +82,7 @@ const PROPERTIES = [
     location: 'Noida',
     bedrooms: 2,
     price: 4500000, // 45 Lakh
-    priceLabel: '₹45 Lakh',
+    priceLabel: '₹45 Lakh Onwards',
     area: '950 sq ft',
     img: 'https://images.unsplash.com/photo-1760235674447-fe0cc115b697?auto=format&fit=crop&w=900&q=80',
     desc: 'An affordable 2 BHK apartment in Noida Extension, from an established developer.',
@@ -96,7 +96,7 @@ const PROPERTIES = [
     location: 'Faridabad',
     bedrooms: 3,
     price: 6500000, // 65 Lakh
-    priceLabel: '₹65 Lakh',
+    priceLabel: '₹65 Lakh Onwards',
     area: '1400 sq ft',
     img: 'https://images.unsplash.com/photo-1759162788764-f40075c8857f?auto=format&fit=crop&w=900&q=80',
     desc: 'A 3 BHK residential flat in Sector 88, Faridabad, part of the fast-growing Neharpar belt.',
@@ -110,7 +110,7 @@ const PROPERTIES = [
     location: 'Faridabad',
     bedrooms: null,
     price: 11000000, // 1.1 Cr
-    priceLabel: '₹1.1 Cr',
+    priceLabel: '₹1.1 Cr Onwards',
     area: '600 sq ft retail',
     img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=80',
     desc: 'A retail shop in Sector 79, Faridabad, part of a mixed residential-and-commercial development.',
@@ -124,7 +124,7 @@ const PROPERTIES = [
     location: 'Tiruppur',
     bedrooms: null,
     price: 12500000, // 1.25 Cr
-    priceLabel: '₹1.25 Cr',
+    priceLabel: '₹1.25 Cr Onwards',
     area: '9000 sq ft warehouse',
     img: 'https://images.unsplash.com/photo-1553413077-190983b508fa?auto=format&fit=crop&w=900&q=80',
     desc: 'A large warehouse on PN Road, Tiruppur, in the heart of the city\'s textile export hub.',
@@ -138,7 +138,7 @@ const PROPERTIES = [
     location: 'Tiruppur',
     bedrooms: null,
     price: 3500000, // 35 Lakh
-    priceLabel: '₹35 Lakh',
+    priceLabel: '₹35 Lakh Onwards',
     area: '2400 sq ft godown',
     img: 'https://images.unsplash.com/photo-1553413077-190983b508fa?auto=format&fit=crop&w=900&q=80',
     desc: 'A compact, ready-to-move godown in Chettipalayam, Tiruppur — suited for storage or small units.',
