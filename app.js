@@ -78,7 +78,7 @@ function stripItemHtml(p){
 }
 
 const HERO_AMENITY_IMAGES = [
-  { img: 'https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=900&q=80', label: 'Swimming Pool' },
+  { img: 'https://images.unsplash.com/photo-1570338990516-db8dce4e29ec?auto=format&fit=crop&w=900&q=80', label: 'Swimming Pool' },
   { img: 'https://images.unsplash.com/photo-1622021142947-da7dedc7c39a?auto=format&fit=crop&w=900&q=80', label: 'Clubhouse' },
   { img: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=80', label: 'Gym' }
 ];
