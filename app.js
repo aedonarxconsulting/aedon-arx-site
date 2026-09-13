@@ -79,7 +79,7 @@ function stripItemHtml(p){
 
 const HERO_AMENITY_IMAGES = [
   { img: 'https://images.unsplash.com/photo-1570338990516-db8dce4e29ec?auto=format&fit=crop&w=900&q=80', label: 'Swimming Pool' },
-  { img: 'https://images.unsplash.com/photo-1622021142947-da7dedc7c39a?auto=format&fit=crop&w=900&q=80', label: 'Community Place' },
+  { img: 'https://images.unsplash.com/photo-1646991761123-d83ce47c30c9?auto=format&fit=crop&w=900&q=80', label: 'Community Place' },
   { img: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=80', label: 'Gym' },
   { img: 'https://images.unsplash.com/photo-1633585017028-53205ccd1aa4?auto=format&fit=crop&w=900&q=80', label: 'Play Area' },
   { img: 'https://images.unsplash.com/photo-1741702799337-d3259be49d64?auto=format&fit=crop&w=900&q=80', label: 'Lawn' }

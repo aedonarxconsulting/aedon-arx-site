@@ -29,7 +29,7 @@ h1,h2,h3{font-family:'Poppins',sans-serif;font-weight:700;line-height:1.15;lette
 .btn-gold:hover{background:#c49f4a;}
 .btn-sm{padding:10px 18px;font-size:.78rem;}
 section{padding:clamp(60px,8vw,110px) 0;}
-.compact-section{padding:clamp(36px,5vw,56px) 0;}
+.compact-section{padding:clamp(20px,3vw,32px) 0;}
 .surface-light{background:var(--light-bg);color:var(--light-ink);}
 .surface-light .pill{background:rgba(11,37,64,.06);border-color:rgba(11,37,64,.14);}
 .muted{color:var(--ink-muted);}
