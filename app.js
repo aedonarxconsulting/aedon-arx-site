@@ -79,8 +79,10 @@ function stripItemHtml(p){
 
 const HERO_AMENITY_IMAGES = [
   { img: 'https://images.unsplash.com/photo-1570338990516-db8dce4e29ec?auto=format&fit=crop&w=900&q=80', label: 'Swimming Pool' },
-  { img: 'https://images.unsplash.com/photo-1622021142947-da7dedc7c39a?auto=format&fit=crop&w=900&q=80', label: 'Clubhouse' },
-  { img: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=80', label: 'Gym' }
+  { img: 'https://images.unsplash.com/photo-1622021142947-da7dedc7c39a?auto=format&fit=crop&w=900&q=80', label: 'Community Place' },
+  { img: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=80', label: 'Gym' },
+  { img: 'https://images.unsplash.com/photo-1633585017028-53205ccd1aa4?auto=format&fit=crop&w=900&q=80', label: 'Play Area' },
+  { img: 'https://images.unsplash.com/photo-1741702799337-d3259be49d64?auto=format&fit=crop&w=900&q=80', label: 'Lawn' }
 ];
 const GENERIC_GALLERY_IMAGES = [
   'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80',
@@ -115,8 +117,7 @@ function init(){
 
   // ---- render property strip (home) ----
   document.getElementById('propertyStrip').innerHTML =
-    HERO_AMENITY_IMAGES.map(amenityStripItemHtml).join('') +
-    PROPERTIES.slice(0,2).map(stripItemHtml).join('');
+    HERO_AMENITY_IMAGES.map(amenityStripItemHtml).join('');
 
   // ---- render best properties (home) ----
   document.getElementById('bestPropertiesGrid').innerHTML = PROPERTIES.slice(0,6).map(propertyCardHtml).join('');
@@ -126,22 +127,24 @@ function init(){
   const noResults = document.getElementById('noResults');
   const fLocation = document.getElementById('fLocation');
   const fType = document.getElementById('fType');
+  const fBhk = document.getElementById('fBhk');
   const fBudget = document.getElementById('fBudget');
   function renderGrid(){
-    const loc = fLocation.value, type = fType.value, budget = fBudget.value;
+    const loc = fLocation.value, type = fType.value, bhk = fBhk.value, budget = fBudget.value;
     let [min,max] = budget==='Any' ? [0, Infinity] : budget.split('-').map(Number);
     const filtered = PROPERTIES.filter(p=>{
       const okLoc = loc==='Any' || p.location===loc;
       const okType = type==='Any' || p.type===type;
+      const okBhk = bhk==='Any' || (bhk==='5' ? (p.bedrooms && p.bedrooms>=5) : String(p.bedrooms)===bhk);
       const okBudget = p.price >= min && p.price <= max;
-      return okLoc && okType && okBudget;
+      return okLoc && okType && okBhk && okBudget;
     });
     grid.innerHTML = filtered.map(propertyCardHtml).join('');
     noResults.style.display = filtered.length ? 'none' : 'block';
     bindPropertyButtons();
   }
-  [fLocation, fType, fBudget].forEach(el=> el.addEventListener('change', renderGrid));
-  document.getElementById('fReset').addEventListener('click', ()=>{ fLocation.value='Any'; fType.value='Any'; fBudget.value='Any'; renderGrid(); });
+  [fLocation, fType, fBhk, fBudget].forEach(el=> el.addEventListener('change', renderGrid));
+  document.getElementById('fReset').addEventListener('click', ()=>{ fLocation.value='Any'; fType.value='Any'; fBhk.value='Any'; fBudget.value='Any'; renderGrid(); });
   renderGrid();
 
   // ---- testimonials ----
@@ -691,6 +694,11 @@ function initCalculator(){
       if(f.type==='select'){
         return `<div class="tf-field"><label>${f.label}</label><select id="tf_${f.id}">${f.options.map(o=>`<option value="${o[0]}">${o[1]}</option>`).join('')}</select></div>`;
       }
+      const isCurrency = f.label.includes('₹');
+      if(isCurrency){
+        const phFormatted = f.ph ? Number(f.ph).toLocaleString('en-IN') : '';
+        return `<div class="tf-field"><label>${f.label}</label><input id="tf_${f.id}" type="text" inputmode="numeric" class="tf-currency" placeholder="${phFormatted}"></div>`;
+      }
       return `<div class="tf-field"><label>${f.label}</label><input id="tf_${f.id}" type="${f.type}" placeholder="${f.ph||''}" ${f.step?`step="${f.step}"`:''}></div>`;
     }).join('');
     card.innerHTML = `
@@ -704,9 +712,15 @@ function initCalculator(){
     `;
     modal.classList.add('open');
     document.getElementById('tmClose').addEventListener('click', closeTool);
+    document.querySelectorAll('.tf-currency').forEach(inp=>{
+      inp.addEventListener('input', ()=>{
+        const raw = inp.value.replace(/[^0-9]/g, '');
+        inp.value = raw ? Number(raw).toLocaleString('en-IN') : '';
+      });
+    });
     document.getElementById('tmCalc').addEventListener('click', ()=>{
       const values = {};
-      t.fields.forEach(f=> values[f.id] = document.getElementById('tf_'+f.id).value);
+      t.fields.forEach(f=> values[f.id] = document.getElementById('tf_'+f.id).value.replace(/,/g, ''));
       const rows = t.calc(values);
       const resultEl = document.getElementById('tmResult');
       resultEl.innerHTML = rows.map(r=>`<div class="r-row"><span>${r[0]}</span><span class="v">${r[1]}</span></div>`).join('');
