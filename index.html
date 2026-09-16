@@ -177,6 +177,33 @@
 
   <section class="surface-light compact-section">
     <div class="wrap">
+      <span class="pill fup">From Our Blog</span>
+      <h2 class="mask-h" style="font-size:clamp(1.8rem,4vw,2.6rem);margin:14px 0 30px;max-width:600px;"><span>Insights &amp; updates</span></h2>
+      <div class="test-grid" id="blogGrid">
+        <div class="test-card fup">
+          <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=700&q=80" alt="Buying your first home in Gurugram" style="width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:10px;margin-bottom:16px;">
+          <span style="font-size:.72rem;color:var(--secondary);font-weight:600;">MARKET GUIDE</span>
+          <h3 style="font-size:1.02rem;margin:8px 0 8px;">A First-Time Buyer's Guide to Gurugram</h3>
+          <p class="quote" style="margin-bottom:0;">What to check before you book — RERA status, carpet area, and the questions most buyers forget to ask.</p>
+        </div>
+        <div class="test-card fup d1">
+          <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=700&q=80" alt="Commercial real estate investment" style="width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:10px;margin-bottom:16px;">
+          <span style="font-size:.72rem;color:var(--secondary);font-weight:600;">INVESTMENT</span>
+          <h3 style="font-size:1.02rem;margin:8px 0 8px;">Is Commercial Property Right for You?</h3>
+          <p class="quote" style="margin-bottom:0;">Rental yields, lease structures, and how commercial returns compare to residential in today's market.</p>
+        </div>
+        <div class="test-card fup d2">
+          <img src="https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=700&q=80" alt="Noida infrastructure growth" style="width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:10px;margin-bottom:16px;">
+          <span style="font-size:.72rem;color:var(--secondary);font-weight:600;">LOCATION SPOTLIGHT</span>
+          <h3 style="font-size:1.02rem;margin:8px 0 8px;">Why Noida's New Corridors Are Heating Up</h3>
+          <p class="quote" style="margin-bottom:0;">Expressway links, upcoming metro extensions, and what they mean for property values nearby.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="surface-light compact-section">
+    <div class="wrap">
       <span class="pill fup">Client Stories</span>
       <h2 class="mask-h" style="font-size:clamp(1.8rem,4vw,2.6rem);margin:14px 0 30px;max-width:600px;"><span>What our clients say</span></h2>
       <div class="test-grid" id="testimonialsPreviewGrid"></div>
@@ -277,19 +304,16 @@
     <div class="wrap">
       <div class="filter-bar fup">
         <select id="fLocation">
-          <option value="Any">All Locations</option>
           <option value="Gurugram">Gurugram</option>
           <option value="Noida">Noida</option>
           <option value="Faridabad">Faridabad</option>
           <option value="Tiruppur">Tiruppur</option>
         </select>
         <select id="fType">
-          <option value="Any">All Types</option>
           <option value="Residential">Residential</option>
           <option value="Commercial">Commercial</option>
         </select>
         <select id="fBhk">
-          <option value="Any">Any BHK</option>
           <option value="1">1 BHK</option>
           <option value="2">2 BHK</option>
           <option value="3">3 BHK</option>
@@ -297,7 +321,6 @@
           <option value="5">5+ BHK</option>
         </select>
         <select id="fBudget">
-          <option value="Any">Any Budget</option>
           <option value="0-6000000">Under ₹60 Lakh</option>
           <option value="6000000-10000000">₹60 Lakh – ₹1 Cr</option>
           <option value="10000000-20000000">₹1 Cr – ₹2 Cr</option>
