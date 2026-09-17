@@ -92,7 +92,7 @@ const GENERIC_GALLERY_IMAGES = [
 function amenityStripItemHtml(a){
   return `<div class="strip-item">
     <img src="${a.img}" alt="${a.label}">
-    <div class="lbl"><small>Amenity</small><b>${a.label}</b></div>
+    <div class="lbl"><small>Perks</small><b>${a.label}</b></div>
   </div>`;
 }
 
@@ -131,11 +131,11 @@ function init(){
   const fBudget = document.getElementById('fBudget');
   function renderGrid(){
     const loc = fLocation.value, type = fType.value, bhk = fBhk.value, budget = fBudget.value;
-    let [min,max] = budget.split('-').map(Number);
+    let [min,max] = budget==='Any' ? [0, Infinity] : budget.split('-').map(Number);
     const filtered = PROPERTIES.filter(p=>{
-      const okLoc = p.location===loc;
-      const okType = p.type===type;
-      const okBhk = bhk==='5' ? (p.bedrooms && p.bedrooms>=5) : String(p.bedrooms)===bhk;
+      const okLoc = loc==='Any' || p.location===loc;
+      const okType = type==='Any' || p.type===type;
+      const okBhk = bhk==='Any' || (bhk==='5' ? (p.bedrooms && p.bedrooms>=5) : String(p.bedrooms)===bhk);
       const okBudget = p.price >= min && p.price <= max;
       return okLoc && okType && okBhk && okBudget;
     });
@@ -145,7 +145,7 @@ function init(){
   }
   [fLocation, fType, fBhk, fBudget].forEach(el=> el.addEventListener('change', renderGrid));
   document.getElementById('fReset').addEventListener('click', ()=>{
-    [fLocation, fType, fBhk, fBudget].forEach(el=> el.selectedIndex = 0);
+    fLocation.value='Any'; fType.value='Any'; fBhk.value='Any'; fBudget.value='Any';
     renderGrid();
   });
   renderGrid();
