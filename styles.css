@@ -238,6 +238,20 @@ nav.links.mobile-open{display:flex;position:absolute;top:100%;left:0;right:0;fle
 .map-embed iframe{width:100%;height:230px;border:0;display:block;}
 .contact-form{background:rgba(245,248,255,.05);border:1px solid rgba(245,248,255,.12);border-radius:18px;padding:28px;}
 .surface-light .contact-form{background:#fff;border-color:rgba(11,37,64,.1);}
+
+/* ---------- TRACK PAPERWORK STEPPER ---------- */
+.track-stepper{display:flex;flex-direction:column;gap:0;}
+.track-step{display:flex;gap:16px;position:relative;padding-bottom:28px;}
+.track-step:last-child{padding-bottom:0;}
+.track-step .dot-col{display:flex;flex-direction:column;align-items:center;flex:none;}
+.track-step .dot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;font-size:.7rem;font-weight:700;color:#fff;background:rgba(11,37,64,.15);}
+.track-step.done .dot{background:var(--secondary);}
+.track-step.current .dot{background:var(--gold);color:#081B2E;box-shadow:0 0 0 4px rgba(217,180,92,.25);}
+.track-step .line{width:2px;flex:1;background:rgba(11,37,64,.12);margin-top:2px;}
+.track-step.done .line{background:var(--secondary);}
+.track-step .info b{display:block;font-size:.92rem;color:var(--light-ink);}
+.track-step .info span{font-size:.78rem;color:var(--light-muted);}
+.track-step.current .info b{color:var(--secondary);}
 .contact-form .f-row{margin-bottom:16px;}
 .contact-form label{display:block;font-family:'Poppins',sans-serif;font-size:.78rem;font-weight:600;margin-bottom:7px;color:var(--ink-muted);}
 .surface-light .contact-form label{color:var(--light-muted);}

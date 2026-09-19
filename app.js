@@ -186,6 +186,7 @@ function init(){
   initAskAI();
   initCalculator();
   initContactForm();
+  initTrackPaperwork();
   initChatWidget();
   initFaq();
 }
@@ -757,6 +758,57 @@ function initContactForm(){
     const msg = document.getElementById('cMessage').value;
     const phone = document.getElementById('cPhone').value;
     window.location.href = `mailto:connect@aedonarxconsulting.com?subject=Enquiry from ${encodeURIComponent(name)}&body=${encodeURIComponent(msg + '\n\nPhone: ' + phone)}`;
+  });
+}
+
+// ---------------- TRACK PAPERWORK (demo lookup — replace with real backend when ready) ----------------
+const TRACK_RECORDS = {
+  'AEDON-1024': {
+    client: 'Rohan Sharma', property: 'DLF The Skycourt, Sector 86',
+    steps: [
+      {label:'Documents Submitted', date:'02 Sep 2026', status:'done'},
+      {label:'Verification In Progress', date:'05 Sep 2026', status:'current'},
+      {label:'Agreement Drafting', date:'', status:'pending'},
+      {label:'Registration', date:'', status:'pending'},
+      {label:'Handover Complete', date:'', status:'pending'}
+    ]
+  },
+  'AEDON-1058': {
+    client: 'Priya Nair', property: 'Supertech Romano, Noida',
+    steps: [
+      {label:'Documents Submitted', date:'20 Aug 2026', status:'done'},
+      {label:'Verification In Progress', date:'24 Aug 2026', status:'done'},
+      {label:'Agreement Drafting', date:'01 Sep 2026', status:'done'},
+      {label:'Registration', date:'08 Sep 2026', status:'current'},
+      {label:'Handover Complete', date:'', status:'pending'}
+    ]
+  }
+};
+function initTrackPaperwork(){
+  const btn = document.getElementById('trackBtn');
+  if(!btn) return;
+  btn.addEventListener('click', ()=>{
+    const ref = document.getElementById('trackRefInput').value.trim().toUpperCase();
+    const result = document.getElementById('trackResult');
+    const notFound = document.getElementById('trackNotFound');
+    const rec = TRACK_RECORDS[ref];
+    if(!rec){
+      result.style.display = 'none';
+      notFound.style.display = 'block';
+      return;
+    }
+    notFound.style.display = 'none';
+    document.getElementById('trackClientName').textContent = rec.client;
+    document.getElementById('trackPropertyName').textContent = rec.property;
+    document.getElementById('trackStepper').innerHTML = rec.steps.map((s,i)=> `
+      <div class="track-step ${s.status}">
+        <div class="dot-col">
+          <div class="dot">${s.status==='done' ? '✓' : (i+1)}</div>
+          ${i < rec.steps.length-1 ? '<div class="line"></div>' : ''}
+        </div>
+        <div class="info"><b>${s.label}</b><span>${s.date || 'Pending'}</span></div>
+      </div>`).join('');
+    result.style.display = 'block';
   });
 }
 
